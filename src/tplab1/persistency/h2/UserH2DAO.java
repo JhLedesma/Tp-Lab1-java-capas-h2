@@ -5,7 +5,6 @@ import tplab1.persistency.DAO;
 import tplab1.persistency.DbManager;
 import tplab1.persistency.exception.NonExistentElement;
 
-import java.sql.Connection;
 import java.util.List;
 
 public class UserH2DAO implements DAO<User, String> {
@@ -28,23 +27,30 @@ public class UserH2DAO implements DAO<User, String> {
 
     public User get(String name) throws NonExistentElement {
         System.out.printf("Finding user | Name: '%s'%n", name);
-        Connection connection = dbManager.connect();
         String format = "SELECT * FROM users WHERE name = '%s'";
         String query = String.format(format, name);
 
-        User user = dbManager.executeQuery(query, connection, new UserMapper()).get(0);
+        User user = dbManager.executeQuery(query, userMapper).get(0);
         System.out.printf("User Found  | '%s'%n", user);
         return user;
     }
 
     public List<User> getAll() throws NonExistentElement {
         System.out.printf("Finding all of users");
-        Connection connection = dbManager.connect();
         String query = "SELECT * FROM users";
 
-        List<User> users = dbManager.executeQuery(query, connection, userMapper);
+        List<User> users = dbManager.executeQuery(query, userMapper);
         System.out.printf("Users Found  | '%s'%n", users);
         return users;
+    }
+
+    @Override
+    public void delete(String id) {
+        System.out.printf("Deleting User | Id: '%s'%n", id);
+        String format = "DELETE FOM users WHERE '%s'";
+        String sql = String.format(format, id);
+        dbManager.execute(sql);
+        System.out.printf("User Deleted '%s'%n | Id: ", id);
     }
 
     private void insert(User user) {
