@@ -46,11 +46,11 @@ public class UserH2DAO implements DAO<User, String> {
 
     @Override
     public void delete(String id) {
-        System.out.printf("Deleting User | Id: '%s'%n", id);
-        String format = "DELETE FOM users WHERE '%s'";
+        System.out.printf("Deleting users | Id: '%s'%n", id);
+        String format = "DELETE FROM users WHERE name = '%s'";
         String sql = String.format(format, id);
         dbManager.execute(sql);
-        System.out.printf("User Deleted '%s'%n | Id: ", id);
+        System.out.printf("User Deleted | Id: '%s'%n", id);
     }
 
     private void insert(User user) {

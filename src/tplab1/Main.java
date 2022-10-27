@@ -15,7 +15,7 @@ public class Main {
         TableManager tableManager = new H2TableManager(dbManager);
         DAO<User, String> userDAO = new UserH2DAO(dbManager);
 
-        tableManager.createUserTable();
+        tableManager.clearDb();
         User user = new User("Jesus", "Ledesma");
         User user2 = new User("Jesus2", "Ledesma2");
         userDAO.save(user);
@@ -23,7 +23,5 @@ public class Main {
 
         MainFrame mainFrame = new MainFrame(userDAO);
         mainFrame.show();
-
-        tableManager.dropUserTable();
     }
 }

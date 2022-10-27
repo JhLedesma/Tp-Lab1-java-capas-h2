@@ -10,16 +10,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class UserTablePanel extends JPanel implements ActionListener {
 
     private DAO<User, String> dao;
-    private UserTableModel userTableModel;
-    private JTable userTable;
-    private JScrollPane scrollPane;
-    private JButton cleanButton;
-    private JButton addButton;
+    private UserTableModel userTableModel = new UserTableModel();
+    private JTable userTable = new JTable(userTableModel);
+    private JScrollPane scrollPane = new JScrollPane(userTable);
+    private JButton deleteButton = new JButton("Eliminar");
+    private JButton addButton = new JButton("Agregar");
+    private JButton updateButton = new JButton("Modificar");
+    private JButton backButton = new JButton("Volver");
 
     public UserTablePanel(DAO<User, String> dao) {
         super();
@@ -29,40 +30,60 @@ public class UserTablePanel extends JPanel implements ActionListener {
 
     private void buildPanel() {
         this.setLayout(new FlowLayout());
-        userTableModel = new UserTableModel();
-        userTable = new JTable(userTableModel);
-        scrollPane = new JScrollPane(userTable);
+        addComponents();
+        addListeners();
+        showUsersList();
+    }
+
+    private void addComponents() {
         this.add(scrollPane);
-
-        cleanButton = new JButton("Limpiar");
-        cleanButton.addActionListener(this);
-        this.add(cleanButton);
-
-        addButton = new JButton("Agregar");
-        addButton.addActionListener(this);
+        this.add(deleteButton);
         this.add(addButton);
+        this.add(updateButton);
+        this.add(backButton);
+    }
 
+    private void addListeners() {
+        deleteButton.addActionListener(deleteButtonEffect());
+        addButton.addActionListener(addButtonEffect());
+        updateButton.addActionListener(this);
+        backButton.addActionListener(this);
+    }
+
+    private void showUsersList() {
         List<User> content;
         try {
             content = dao.getAll();
         } catch (NonExistentElement e) {
             content = Collections.emptyList();
         }
-
         userTableModel.setContent(content);
         userTableModel.fireTableDataChanged();
+//        userTable.setRowSelectionAllowed(true);
+//        userTable.setRowSelectionInterval(0, 0);
+    }
+
+    public ActionListener addButtonEffect() {
+        return e -> {
+            User user = new User("Hola", "Chau");
+            dao.save(user);
+            userTableModel.getContent().add(user);
+            userTableModel.fireTableDataChanged();
+        };
+    }
+
+    public ActionListener deleteButtonEffect() {
+        return e -> {
+            int selectedRow = userTable.getSelectedRow();
+            String id = userTableModel.getContent().get(selectedRow).getName();
+            dao.delete(id);
+            userTableModel.getContent().remove(selectedRow);
+            userTableModel.fireTableDataChanged();
+        };
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == addButton) {
-            Random random = new Random();
-            User user = new User(random.nextInt() + "_name", random.nextInt() + "_surname");
-            userTableModel.getContent().add(user);
-            userTableModel.fireTableDataChanged();
-        } else if (e.getSource() == cleanButton) {
-            userTableModel.getContent().clear();
-            userTableModel.fireTableDataChanged();
-        }
+
     }
 }
