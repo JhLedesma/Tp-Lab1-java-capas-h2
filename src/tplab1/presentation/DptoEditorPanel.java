@@ -33,9 +33,38 @@ public class DptoEditorPanel extends JPanel {
     public void buildPanel() {
         BoxLayout verticalLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(verticalLayout);
-        buildFields();
+        setFields();
         addComponents();
         addListeners();
+    }
+
+    public ActionListener execClearButton() {
+        return e -> setFields();
+    }
+
+    public ActionListener execSaveButton() {
+        return e -> {
+            Dpto dpto = new Dpto(Integer.parseInt(dptoField.getText()), nameField.getText(), surnameField.getText());
+            dao.save(dpto);
+            dptoController.showDptoTablePanel();
+        };
+    }
+
+    public ActionListener execCancelButton() {
+        return e -> {
+        };
+    }
+
+    public void setFields() {
+        if (dpto != null) {
+            dptoField.setText(dpto.getId().toString());
+            nameField.setText(dpto.getName());
+            surnameField.setText(dpto.getSurname());
+        } else {
+            dptoField.setText("");
+            nameField.setText("");
+            surnameField.setText("");
+        }
     }
 
     private void addComponents() {
@@ -54,38 +83,13 @@ public class DptoEditorPanel extends JPanel {
         this.add(bottomPanel);
     }
 
-    private void buildFields() {
-        if (dpto != null) {
-            dptoField.setText(dpto.getId().toString());
-            nameField.setText(dpto.getName());
-            surnameField.setText(dpto.getSurname());
-        }
-    }
-
     private void addListeners() {
         clearButton.addActionListener(execClearButton());
         saveButton.addActionListener(execSaveButton());
         cancelButton.addActionListener(execCancelButton());
     }
 
-    public ActionListener execClearButton() {
-        return e -> {
-            dptoField.setText("");
-            nameField.setText("");
-            surnameField.setText("");
-        };
-    }
-
-    public ActionListener execSaveButton() {
-        return e -> {
-            Dpto dpto = new Dpto(Integer.parseInt(dptoField.getText()), nameField.getText(), surnameField.getText());
-            dao.save(dpto);
-            dptoController.showDptoTablePanel();
-        };
-    }
-
-    public ActionListener execCancelButton() {
-        return e -> {
-        };
+    public void setDpto(Dpto dpto) {
+        this.dpto = dpto;
     }
 }

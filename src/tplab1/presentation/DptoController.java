@@ -24,13 +24,6 @@ public class DptoController {
         showDptoTablePanel();
     }
 
-    public void mostrarSalir() {
-        int response = JOptionPane.showConfirmDialog(frame, "Esta seguro?");
-        if (response == JOptionPane.OK_OPTION) {
-            System.exit(0);
-        }
-    }
-
     public void showDptoTablePanel() {
         dptoTablePanel.buildPanel();
         frame.getContentPane().removeAll();
@@ -40,6 +33,8 @@ public class DptoController {
     }
 
     public void showDptoEditorPanel(Dpto dpto) {
+        dptoEditorPanel.setDpto(dpto);
+        dptoEditorPanel.setFields();
         frame.getContentPane().removeAll();
         frame.getContentPane().add(dptoEditorPanel);
         frame.getContentPane().validate();

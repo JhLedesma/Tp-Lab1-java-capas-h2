@@ -55,7 +55,7 @@ public class DptoTablePanel extends JPanel implements ActionListener {
     private void addListeners() {
         deleteButton.addActionListener(deleteButtonEffect());
         addButton.addActionListener(addButtonEffect());
-        updateButton.addActionListener(this);
+        updateButton.addActionListener(updateButtonEffect());
         backButton.addActionListener(this);
     }
 
@@ -66,6 +66,16 @@ public class DptoTablePanel extends JPanel implements ActionListener {
 
     public ActionListener addButtonEffect() {
         return e -> dptoController.showDptoEditorPanel(null);
+    }
+
+    public ActionListener updateButtonEffect() {
+        return e -> {
+            int selectedRow = dptoTable.getSelectedRow();
+            if (selectedRow >= 0) {
+                Dpto dpto = dptoTableModel.getContent().get(selectedRow);
+                dptoController.showDptoEditorPanel(dpto);
+            }
+        };
     }
 
     public ActionListener deleteButtonEffect() {
