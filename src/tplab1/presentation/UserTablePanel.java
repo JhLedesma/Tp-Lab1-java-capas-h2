@@ -15,6 +15,8 @@ public class UserTablePanel extends JPanel implements ActionListener {
 
     private DAO<User, String> dao;
     private UserTableModel userTableModel = new UserTableModel();
+    JPanel topPanel = new JPanel();
+    JPanel bottomPanel = new JPanel();
     private JTable userTable = new JTable(userTableModel);
     private JScrollPane scrollPane = new JScrollPane(userTable);
     private JButton deleteButton = new JButton("Eliminar");
@@ -29,18 +31,23 @@ public class UserTablePanel extends JPanel implements ActionListener {
     }
 
     private void buildPanel() {
-        this.setLayout(new FlowLayout());
+        BoxLayout verticalLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
+        this.setLayout(verticalLayout);
         addComponents();
         addListeners();
         showUsersList();
     }
 
     private void addComponents() {
-        this.add(scrollPane);
-        this.add(deleteButton);
-        this.add(addButton);
-        this.add(updateButton);
-        this.add(backButton);
+        topPanel.setLayout(new FlowLayout());
+        bottomPanel.setLayout(new FlowLayout());
+        topPanel.add(scrollPane);
+        bottomPanel.add(deleteButton);
+        bottomPanel.add(addButton);
+        bottomPanel.add(updateButton);
+        bottomPanel.add(backButton);
+        this.add(topPanel);
+        this.add(bottomPanel);
     }
 
     private void addListeners() {
