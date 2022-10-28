@@ -14,6 +14,7 @@ import java.util.List;
 public class DptoTablePanel extends JPanel implements ActionListener {
 
     private DAO<Dpto, Integer> dao;
+    private DptoController dptoController;
     private DptoTableModel dptoTableModel = new DptoTableModel();
     private JPanel topPanel = new JPanel();
     private JPanel bottomPanel = new JPanel();
@@ -24,13 +25,14 @@ public class DptoTablePanel extends JPanel implements ActionListener {
     private JButton updateButton = new JButton("Modificar");
     private JButton backButton = new JButton("Volver");
 
-    public DptoTablePanel(DAO<Dpto, Integer> dao) {
+    public DptoTablePanel(DAO<Dpto, Integer> dao, DptoController dptoController) {
         super();
         this.dao = dao;
-        buildPanel();
+        this.dptoController = dptoController;
+        //buildPanel();
     }
 
-    private void buildPanel() {
+    public void buildPanel() {
         BoxLayout verticalLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(verticalLayout);
         addComponents();
@@ -59,24 +61,22 @@ public class DptoTablePanel extends JPanel implements ActionListener {
 
     private void showUsersList() {
         dptoTableModel.setContent(getContent());
-        dptoTableModel.fireTableDataChanged(dptoTable);
+        dptoTableModel.fireTableDataChanged();
     }
 
     public ActionListener addButtonEffect() {
-        return e -> {
-            Dpto dpto = new Dpto("Hola", "Chau");
-            dao.save(dpto);
-            showUsersList();
-        };
+        return e -> dptoController.showDptoEditorPanel(null);
     }
 
     public ActionListener deleteButtonEffect() {
         return e -> {
             int selectedRow = dptoTable.getSelectedRow();
-            Integer id = dptoTableModel.getContent().get(selectedRow).getId();
-            dao.delete(id);
-            dptoTableModel.getContent().remove(selectedRow);
-            dptoTableModel.fireTableDataChanged(dptoTable);
+            if (selectedRow >= 0) {
+                Integer id = dptoTableModel.getContent().get(selectedRow).getId();
+                dao.delete(id);
+                dptoTableModel.getContent().remove(selectedRow);
+                dptoTableModel.fireTableDataChanged();
+            }
         };
     }
 

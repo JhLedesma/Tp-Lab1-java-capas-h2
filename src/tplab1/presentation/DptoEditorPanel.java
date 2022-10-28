@@ -7,9 +7,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class UserEditorPanel extends JPanel {
+public class DptoEditorPanel extends JPanel {
 
-    private DAO<Dpto, String> dao;
+    private DAO<Dpto, Integer> dao;
+    private DptoController dptoController;
     private Dpto dpto;
     private JPanel topPanel = new JPanel();
     private JPanel bottomPanel = new JPanel();
@@ -23,18 +24,13 @@ public class UserEditorPanel extends JPanel {
     private JButton saveButton = new JButton("Guardar");
     private JButton cancelButton = new JButton("Cancel");
 
-    public UserEditorPanel(DAO<Dpto, String> dao) {
+    public DptoEditorPanel(DAO<Dpto, Integer> dao, DptoController dptoController) {
         super();
         this.dao = dao;
+        this.dptoController = dptoController;
     }
 
-    public UserEditorPanel(DAO<Dpto, String> dao, Dpto dpto) {
-        super();
-        this.dao = dao;
-        this.dpto = dpto;
-    }
-
-    private void buildPanel() {
+    public void buildPanel() {
         BoxLayout verticalLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(verticalLayout);
         buildFields();
@@ -46,7 +42,7 @@ public class UserEditorPanel extends JPanel {
         topPanel.setLayout(new FlowLayout());
         bottomPanel.setLayout(new FlowLayout());
         topPanel.add(dptoLabel);
-        topPanel.add(dptoLabel);
+        topPanel.add(dptoField);
         topPanel.add(nameLabel);
         topPanel.add(nameField);
         topPanel.add(surnameLabel);
@@ -60,8 +56,7 @@ public class UserEditorPanel extends JPanel {
 
     private void buildFields() {
         if (dpto != null) {
-            dptoField.setText("dpto info");
-            dptoField.setEditable(true);
+            dptoField.setText(dpto.getId().toString());
             nameField.setText(dpto.getName());
             surnameField.setText(dpto.getSurname());
         }
@@ -83,8 +78,9 @@ public class UserEditorPanel extends JPanel {
 
     public ActionListener execSaveButton() {
         return e -> {
-            Dpto dpto = new Dpto(nameField.getText(), surnameField.getText());
+            Dpto dpto = new Dpto(Integer.parseInt(dptoField.getText()), nameField.getText(), surnameField.getText());
             dao.save(dpto);
+            dptoController.showDptoTablePanel();
         };
     }
 

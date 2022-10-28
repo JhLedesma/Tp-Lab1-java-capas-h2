@@ -18,13 +18,9 @@ public class DptoH2Dao implements DAO<Dpto, Integer> {
 
     public void save(Dpto dpto) {
         try {
-            if (dpto.getId() != null) {
-                get(dpto.getId());
-                update(dpto);
-            } else {
-                insert(dpto);
-            }
-        } catch (NonExistentElement e){
+            get(dpto.getId());
+            update(dpto);
+        } catch (NonExistentElement e) {
             insert(dpto);
         }
     }
@@ -59,8 +55,8 @@ public class DptoH2Dao implements DAO<Dpto, Integer> {
 
     private void insert(Dpto dpto) {
         System.out.printf("Inserting Dpto '%s'%n", dpto);
-        String format = "INSERT INTO dpto (name, surname) VALUES ('%s', '%s')";
-        String sql = String.format(format, dpto.getName(), dpto.getSurname());
+        String format = "INSERT INTO dpto (id, name, surname) VALUES ('%s','%s', '%s')";
+        String sql = String.format(format, dpto.getId(), dpto.getName(), dpto.getSurname());
         dbManager.execute(sql);
         System.out.printf("Dpto Inserted '%s'%n", dpto);
     }

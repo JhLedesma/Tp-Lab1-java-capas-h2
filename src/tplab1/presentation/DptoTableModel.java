@@ -2,7 +2,6 @@ package tplab1.presentation;
 
 import tplab1.application.Dpto;
 
-import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,13 +65,5 @@ public class DptoTableModel extends AbstractTableModel {
 
     public void setContent(List<Dpto> content) {
         this.content = content;
-    }
-
-    public void fireTableDataChanged(JTable jTable) {
-        fireTableDataChanged();
-        if (!getContent().isEmpty()) {
-            jTable.setRowSelectionAllowed(true);
-            jTable.setRowSelectionInterval(0, 0);
-        }
     }
 }
