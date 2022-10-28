@@ -1,6 +1,6 @@
 package tplab1.presentation;
 
-import tplab1.application.User;
+import tplab1.application.Dpto;
 import tplab1.persistency.DAO;
 import tplab1.persistency.exception.NonExistentElement;
 
@@ -11,20 +11,20 @@ import java.awt.event.ActionListener;
 import java.util.Collections;
 import java.util.List;
 
-public class UserTablePanel extends JPanel implements ActionListener {
+public class DptoTablePanel extends JPanel implements ActionListener {
 
-    private DAO<User, String> dao;
-    private UserTableModel userTableModel = new UserTableModel();
+    private DAO<Dpto, Integer> dao;
+    private DptoTableModel dptoTableModel = new DptoTableModel();
     private JPanel topPanel = new JPanel();
     private JPanel bottomPanel = new JPanel();
-    private JTable userTable = new JTable(userTableModel);
-    private JScrollPane scrollPane = new JScrollPane(userTable);
+    private JTable dptoTable = new JTable(dptoTableModel);
+    private JScrollPane scrollPane = new JScrollPane(dptoTable);
     private JButton deleteButton = new JButton("Eliminar");
     private JButton addButton = new JButton("Agregar");
     private JButton updateButton = new JButton("Modificar");
     private JButton backButton = new JButton("Volver");
 
-    public UserTablePanel(DAO<User, String> dao) {
+    public DptoTablePanel(DAO<Dpto, Integer> dao) {
         super();
         this.dao = dao;
         buildPanel();
@@ -58,39 +58,42 @@ public class UserTablePanel extends JPanel implements ActionListener {
     }
 
     private void showUsersList() {
-        List<User> content;
-        try {
-            content = dao.getAll();
-        } catch (NonExistentElement e) {
-            content = Collections.emptyList();
-        }
-        userTableModel.setContent(content);
-        userTableModel.fireTableDataChanged();
-//        userTable.setRowSelectionAllowed(true);
-//        userTable.setRowSelectionInterval(0, 0);
+        dptoTableModel.setContent(getContent());
+        dptoTableModel.fireTableDataChanged(dptoTable);
     }
 
     public ActionListener addButtonEffect() {
         return e -> {
-            User user = new User("Hola", "Chau");
-            dao.save(user);
-            userTableModel.getContent().add(user);
-            userTableModel.fireTableDataChanged();
+            Dpto dpto = new Dpto("Hola", "Chau");
+            dao.save(dpto);
+            showUsersList();
         };
     }
 
     public ActionListener deleteButtonEffect() {
         return e -> {
-            int selectedRow = userTable.getSelectedRow();
-            String id = userTableModel.getContent().get(selectedRow).getName();
+            int selectedRow = dptoTable.getSelectedRow();
+            Integer id = dptoTableModel.getContent().get(selectedRow).getId();
             dao.delete(id);
-            userTableModel.getContent().remove(selectedRow);
-            userTableModel.fireTableDataChanged();
+            dptoTableModel.getContent().remove(selectedRow);
+            dptoTableModel.fireTableDataChanged(dptoTable);
         };
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
+    }
+
+    //TODO pasar a metodo de servicio
+
+    private List<Dpto> getContent() {
+        List<Dpto> content;
+        try {
+            content = dao.getAll();
+        } catch (NonExistentElement e) {
+            content = Collections.emptyList();
+        }
+        return content;
     }
 }

@@ -12,17 +12,17 @@ public class H2TableManager implements TableManager {
     }
 
     public void createUserTable() {
-        System.out.println("Creating User Table");
-        String query = "CREATE TABLE IF NOT EXISTS users (id IDENTITY NOT NULL PRIMARY KEY, name VARCHAR(256), surname VARCHAR(256))";
+        System.out.println("Creating Dpto Table");
+        String query = "CREATE TABLE IF NOT EXISTS dpto (id IDENTITY NOT NULL PRIMARY KEY, name VARCHAR(256), surname VARCHAR(256))";
         dbManager.execute(query);
-        System.out.println("User Table Created");
+        System.out.println("Dpto Table Created");
     }
 
     public void dropUserTable() {
-        System.out.println("Dropping User Table");
-        String query = "DROP TABLE IF EXISTS users";
+        System.out.println("Dropping Dpto Table");
+        String query = "DROP TABLE IF EXISTS dpto";
         dbManager.execute(query);
-        System.out.println("User Table Dropped");
+        System.out.println("Dpto Table Dropped");
     }
 
     public void clearDb() {

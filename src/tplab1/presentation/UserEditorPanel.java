@@ -1,6 +1,6 @@
 package tplab1.presentation;
 
-import tplab1.application.User;
+import tplab1.application.Dpto;
 import tplab1.persistency.DAO;
 
 import javax.swing.*;
@@ -9,8 +9,8 @@ import java.awt.event.ActionListener;
 
 public class UserEditorPanel extends JPanel {
 
-    private DAO<User, String> dao;
-    private User user;
+    private DAO<Dpto, String> dao;
+    private Dpto dpto;
     private JPanel topPanel = new JPanel();
     private JPanel bottomPanel = new JPanel();
     private JLabel dptoLabel = new JLabel("Unidad");
@@ -23,15 +23,15 @@ public class UserEditorPanel extends JPanel {
     private JButton saveButton = new JButton("Guardar");
     private JButton cancelButton = new JButton("Cancel");
 
-    public UserEditorPanel(DAO<User, String> dao) {
+    public UserEditorPanel(DAO<Dpto, String> dao) {
         super();
         this.dao = dao;
     }
 
-    public UserEditorPanel(DAO<User, String> dao, User user) {
+    public UserEditorPanel(DAO<Dpto, String> dao, Dpto dpto) {
         super();
         this.dao = dao;
-        this.user = user;
+        this.dpto = dpto;
     }
 
     private void buildPanel() {
@@ -39,6 +39,7 @@ public class UserEditorPanel extends JPanel {
         this.setLayout(verticalLayout);
         buildFields();
         addComponents();
+        addListeners();
     }
 
     private void addComponents() {
@@ -58,10 +59,11 @@ public class UserEditorPanel extends JPanel {
     }
 
     private void buildFields() {
-        if (user != null) {
+        if (dpto != null) {
             dptoField.setText("dpto info");
-            nameField.setText(user.getName());
-            surnameField.setText(user.getSurname());
+            dptoField.setEditable(true);
+            nameField.setText(dpto.getName());
+            surnameField.setText(dpto.getSurname());
         }
     }
 
@@ -81,8 +83,8 @@ public class UserEditorPanel extends JPanel {
 
     public ActionListener execSaveButton() {
         return e -> {
-            User user = new User(nameField.getText(), surnameField.getText());
-            dao.save(user);
+            Dpto dpto = new Dpto(nameField.getText(), surnameField.getText());
+            dao.save(dpto);
         };
     }
 

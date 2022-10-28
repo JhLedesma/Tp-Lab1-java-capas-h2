@@ -1,6 +1,6 @@
 package tplab1.presentation;
 
-import tplab1.application.User;
+import tplab1.application.Dpto;
 import tplab1.persistency.DAO;
 
 import javax.swing.*;
@@ -8,9 +8,9 @@ import java.awt.*;
 
 public class MainFrame {
 
-    private DAO<User, String> dao;
+    private DAO<Dpto, Integer> dao;
 
-    public MainFrame(DAO<User, String> dao) {
+    public MainFrame(DAO<Dpto, Integer> dao) {
         this.dao = dao;
     }
 
@@ -19,7 +19,7 @@ public class MainFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(new FlowLayout());
 
-        frame.getContentPane().add(new UserTablePanel(dao));
+        frame.getContentPane().add(new DptoTablePanel(dao));
 
         frame.pack();
         frame.setVisible(true);

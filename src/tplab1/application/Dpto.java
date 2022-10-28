@@ -2,14 +2,29 @@ package tplab1.application;
 
 import java.util.Objects;
 
-public class User {
+public class Dpto {
 
+    private Integer id;
     private String name;
     private String surname;
 
-    public User(String name, String surname) {
+    public Dpto(Integer id, String name, String surname) {
+        this.id = id;
         this.name = name;
         this.surname = surname;
+    }
+
+    public Dpto(String name, String surname) {
+        this.name = name;
+        this.surname = surname;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -32,19 +47,20 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(name, user.name) && Objects.equals(surname, user.surname);
+        Dpto dpto = (Dpto) o;
+        return Objects.equals(id, dpto.id) && Objects.equals(name, dpto.name) && Objects.equals(surname, dpto.surname);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname);
+        return Objects.hash(id, name, surname);
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
+        return "Dpto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 '}';
     }
