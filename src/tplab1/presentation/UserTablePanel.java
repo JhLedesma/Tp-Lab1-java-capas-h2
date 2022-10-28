@@ -15,8 +15,8 @@ public class UserTablePanel extends JPanel implements ActionListener {
 
     private DAO<User, String> dao;
     private UserTableModel userTableModel = new UserTableModel();
-    JPanel topPanel = new JPanel();
-    JPanel bottomPanel = new JPanel();
+    private JPanel topPanel = new JPanel();
+    private JPanel bottomPanel = new JPanel();
     private JTable userTable = new JTable(userTableModel);
     private JScrollPane scrollPane = new JScrollPane(userTable);
     private JButton deleteButton = new JButton("Eliminar");
