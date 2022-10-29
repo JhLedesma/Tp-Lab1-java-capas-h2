@@ -12,14 +12,13 @@ public class DptoEditorPanel extends JPanel {
     private DptoService dptoService;
     private DptoController dptoController;
     private Dpto dpto;
-    private JPanel topPanel = new JPanel();
-    private JPanel bottomPanel = new JPanel();
     private JLabel dptoLabel = new JLabel("Unidad");
     private JLabel nameLabel = new JLabel("Nombre");
     private JLabel surnameLabel = new JLabel("Apellido");
     private JTextField dptoField = new JTextField(10);
     private JTextField nameField = new JTextField(10);
     private JTextField surnameField = new JTextField(10);
+    private JComboBox dptoBox = new JComboBox();
     private JButton clearButton = new JButton("Limpiar");
     private JButton saveButton = new JButton("Guardar");
     private JButton cancelButton = new JButton("Cancel");
@@ -29,12 +28,12 @@ public class DptoEditorPanel extends JPanel {
         this.dptoService = dptoService;
         this.dptoController = dptoController;
     }
-// selector para id de creacion
-// disabled de selector para modificacion
-// grip pane en dpto user
+
 // Pantalla principal
 // Boton volver de dpto table
 // Clase boostrap que carga las unidades
+// validacion de campos vacios
+
     public void buildPanel() {
         BoxLayout verticalLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(verticalLayout);
@@ -49,7 +48,8 @@ public class DptoEditorPanel extends JPanel {
 
     public ActionListener execSaveButton() {
         return e -> {
-            dptoService.save(dptoField.getText(), nameField.getText(), surnameField.getText());
+            String id = dpto == null ? dptoBox.getSelectedItem().toString() : dptoField.getText();
+            dptoService.save(id, nameField.getText(), surnameField.getText());
             dptoController.showDptoTablePanel();
         };
     }
@@ -60,28 +60,50 @@ public class DptoEditorPanel extends JPanel {
 
     public void setFields() {
         if (dpto != null) {
+            dptoBox.setVisible(false);
+            dptoField.setVisible(true);
+            dptoField.setEnabled(false);
             dptoField.setText(dpto.getId().toString());
             nameField.setText(dpto.getName());
             surnameField.setText(dpto.getSurname());
         } else {
-            dptoField.setText("");
+            dptoBox.setVisible(true);
+            dptoField.setVisible(false);
+            dptoBox.setModel(new DefaultComboBoxModel(dptoService.getAvailableIds()));
             nameField.setText("");
             surnameField.setText("");
         }
     }
 
     private void addComponents() {
-        topPanel.setLayout(new FlowLayout());
+        JPanel topPanel = new JPanel();
+        JPanel bottomPanel = new JPanel();
+        topPanel.setLayout(new GridLayout(2, 2));
         bottomPanel.setLayout(new FlowLayout());
-        topPanel.add(dptoLabel);
-        topPanel.add(dptoField);
-        topPanel.add(nameLabel);
-        topPanel.add(nameField);
-        topPanel.add(surnameLabel);
-        topPanel.add(surnameField);
+
+        JPanel dptoPanel = new JPanel();
+        dptoPanel.setLayout(new FlowLayout());
+        dptoBox.setPreferredSize(new Dimension(150, dptoBox.getPreferredSize().height));
+        dptoPanel.add(dptoLabel);
+        dptoPanel.add(dptoBox);
+        dptoPanel.add(dptoField);
+        JPanel namePanel = new JPanel();
+        namePanel.setLayout(new FlowLayout());
+        namePanel.add(nameLabel);
+        namePanel.add(nameField);
+        JPanel surnamePanel = new JPanel();
+        surnamePanel.setLayout(new FlowLayout());
+        surnamePanel.add(surnameLabel);
+        surnamePanel.add(surnameField);
+
+        topPanel.add(dptoPanel);
+        topPanel.add(namePanel);
+        topPanel.add(surnamePanel);
+
         bottomPanel.add(clearButton);
         bottomPanel.add(saveButton);
         bottomPanel.add(cancelButton);
+
         this.add(topPanel);
         this.add(bottomPanel);
     }

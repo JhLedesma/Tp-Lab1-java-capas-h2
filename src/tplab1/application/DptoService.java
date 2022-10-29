@@ -3,8 +3,10 @@ package tplab1.application;
 import tplab1.persistency.DAO;
 import tplab1.persistency.exception.NonExistentElement;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DptoService {
 
@@ -31,5 +33,21 @@ public class DptoService {
 
     public void delete(Integer id) {
         dao.delete(id);
+    }
+
+    public String[] getAvailableIds() {
+        List<String> dtosIds = getContentTable().stream().map(d -> d.getId().toString()).collect(Collectors.toList());
+        List<String> list = getDptosCount().stream().filter(item -> !dtosIds.contains(item)).collect(Collectors.toList());
+        String[] items = new String[list.size()];
+        return list.toArray(items);
+    }
+
+    private ArrayList<String> getDptosCount() {
+        ArrayList<String> items = new ArrayList();
+        for (int i = 0; i < 21; i++) {
+            int item = i+1;
+            items.add(String.valueOf(item));
+        }
+        return items;
     }
 }
