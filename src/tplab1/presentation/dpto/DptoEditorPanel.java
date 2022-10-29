@@ -1,7 +1,7 @@
-package tplab1.presentation;
+package tplab1.presentation.dpto;
 
 import tplab1.application.Dpto;
-import tplab1.persistency.DAO;
+import tplab1.application.DptoService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 public class DptoEditorPanel extends JPanel {
 
-    private DAO<Dpto, Integer> dao;
+    private DptoService dptoService;
     private DptoController dptoController;
     private Dpto dpto;
     private JPanel topPanel = new JPanel();
@@ -24,12 +24,17 @@ public class DptoEditorPanel extends JPanel {
     private JButton saveButton = new JButton("Guardar");
     private JButton cancelButton = new JButton("Cancel");
 
-    public DptoEditorPanel(DAO<Dpto, Integer> dao, DptoController dptoController) {
+    public DptoEditorPanel(DptoService dptoService, DptoController dptoController) {
         super();
-        this.dao = dao;
+        this.dptoService = dptoService;
         this.dptoController = dptoController;
     }
-
+// selector para id de creacion
+// disabled de selector para modificacion
+// grip pane en dpto user
+// Pantalla principal
+// Boton volver de dpto table
+// Clase boostrap que carga las unidades
     public void buildPanel() {
         BoxLayout verticalLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(verticalLayout);
@@ -44,15 +49,13 @@ public class DptoEditorPanel extends JPanel {
 
     public ActionListener execSaveButton() {
         return e -> {
-            Dpto dpto = new Dpto(Integer.parseInt(dptoField.getText()), nameField.getText(), surnameField.getText());
-            dao.save(dpto);
+            dptoService.save(dptoField.getText(), nameField.getText(), surnameField.getText());
             dptoController.showDptoTablePanel();
         };
     }
 
     public ActionListener execCancelButton() {
-        return e -> {
-        };
+        return e -> dptoController.showDptoTablePanel();
     }
 
     public void setFields() {

@@ -1,22 +1,22 @@
-package tplab1.presentation;
+package tplab1.presentation.dpto;
 
 import tplab1.application.Dpto;
-import tplab1.persistency.DAO;
+import tplab1.application.DptoService;
 
 import javax.swing.*;
 
 public class DptoController {
     private JFrame frame;
-    private DAO<Dpto, Integer> dao;
+    private DptoService dptoService;
     private DptoTablePanel dptoTablePanel;
     private DptoEditorPanel dptoEditorPanel;
 
 
-    public DptoController(JFrame frame, DAO<Dpto, Integer> dao) {
+    public DptoController(JFrame frame, DptoService dptoService) {
         this.frame = frame;
-        this.dao = dao;
-        this.dptoTablePanel = new DptoTablePanel(dao, this);
-        this.dptoEditorPanel = new DptoEditorPanel(dao, this);
+        this.dptoService = dptoService;
+        this.dptoTablePanel = new DptoTablePanel(dptoService, this);
+        this.dptoEditorPanel = new DptoEditorPanel(dptoService, this);
     }
 
     public void build() {

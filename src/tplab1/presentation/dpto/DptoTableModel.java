@@ -1,4 +1,4 @@
-package tplab1.presentation;
+package tplab1.presentation.dpto;
 
 import tplab1.application.Dpto;
 

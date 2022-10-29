@@ -1,19 +1,15 @@
-package tplab1.presentation;
+package tplab1.presentation.dpto;
 
 import tplab1.application.Dpto;
-import tplab1.persistency.DAO;
-import tplab1.persistency.exception.NonExistentElement;
+import tplab1.application.DptoService;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Collections;
-import java.util.List;
 
-public class DptoTablePanel extends JPanel implements ActionListener {
+public class DptoTablePanel extends JPanel {
 
-    private DAO<Dpto, Integer> dao;
+    private DptoService dptoService;
     private DptoController dptoController;
     private DptoTableModel dptoTableModel = new DptoTableModel();
     private JPanel topPanel = new JPanel();
@@ -25,11 +21,10 @@ public class DptoTablePanel extends JPanel implements ActionListener {
     private JButton updateButton = new JButton("Modificar");
     private JButton backButton = new JButton("Volver");
 
-    public DptoTablePanel(DAO<Dpto, Integer> dao, DptoController dptoController) {
+    public DptoTablePanel(DptoService dptoService, DptoController dptoController) {
         super();
-        this.dao = dao;
+        this.dptoService = dptoService;
         this.dptoController = dptoController;
-        //buildPanel();
     }
 
     public void buildPanel() {
@@ -56,11 +51,11 @@ public class DptoTablePanel extends JPanel implements ActionListener {
         deleteButton.addActionListener(deleteButtonEffect());
         addButton.addActionListener(addButtonEffect());
         updateButton.addActionListener(updateButtonEffect());
-        backButton.addActionListener(this);
+        backButton.addActionListener(null);
     }
 
     private void showUsersList() {
-        dptoTableModel.setContent(getContent());
+        dptoTableModel.setContent(dptoService.getContentTable());
         dptoTableModel.fireTableDataChanged();
     }
 
@@ -83,27 +78,10 @@ public class DptoTablePanel extends JPanel implements ActionListener {
             int selectedRow = dptoTable.getSelectedRow();
             if (selectedRow >= 0) {
                 Integer id = dptoTableModel.getContent().get(selectedRow).getId();
-                dao.delete(id);
+                dptoService.delete(id);
                 dptoTableModel.getContent().remove(selectedRow);
                 dptoTableModel.fireTableDataChanged();
             }
         };
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
-
-    //TODO pasar a metodo de servicio
-
-    private List<Dpto> getContent() {
-        List<Dpto> content;
-        try {
-            content = dao.getAll();
-        } catch (NonExistentElement e) {
-            content = Collections.emptyList();
-        }
-        return content;
     }
 }

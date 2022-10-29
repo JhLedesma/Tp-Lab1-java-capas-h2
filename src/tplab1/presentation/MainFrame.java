@@ -1,19 +1,19 @@
 package tplab1.presentation;
 
-import tplab1.application.Dpto;
-import tplab1.persistency.DAO;
+import tplab1.application.DptoService;
+import tplab1.presentation.dpto.DptoController;
 
 import javax.swing.*;
 
 public class MainFrame {
 
     private JFrame frame = new JFrame("TP");
-    private DAO<Dpto, Integer> dao;
+    private DptoService dptoService;
     private DptoController dptoController;
 
-    public MainFrame(DAO<Dpto, Integer> dao) {
-        this.dao = dao;
-        this.dptoController = new DptoController(frame, dao);
+    public MainFrame(DptoService dptoService) {
+        this.dptoService = dptoService;
+        this.dptoController = new DptoController(frame, dptoService);
     }
 
     public void show() {
