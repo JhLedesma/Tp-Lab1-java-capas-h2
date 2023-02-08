@@ -3,6 +3,7 @@ package tplab1;
 import tplab1.application.Dpto;
 import tplab1.application.DptoService;
 import tplab1.persistency.DAO;
+import tplab1.persistency.DbBootstrapping;
 import tplab1.persistency.DbManager;
 import tplab1.persistency.TableManager;
 import tplab1.persistency.h2.DptoH2Dao;
@@ -17,11 +18,7 @@ public class Main {
         DAO<Dpto, Integer> dptoDAO = new DptoH2Dao(dbManager);
         DptoService dptoService = new DptoService(dptoDAO);
 
-        tableManager.clearDb();
-        Dpto dpto = new Dpto(1, "Jesus", "Ledesma");
-        Dpto dpto2 = new Dpto(2, "Jesus2", "Ledesma2");
-        dptoDAO.save(dpto);
-        dptoDAO.save(dpto2);
+        new DbBootstrapping(tableManager, dptoDAO).exec();
 
         MainFrame mainFrame = new MainFrame(dptoService);
         mainFrame.show();

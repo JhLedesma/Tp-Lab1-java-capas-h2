@@ -31,7 +31,6 @@ public class DptoEditorPanel extends JPanel {
 
 // Pantalla principal
 // Boton volver de dpto table
-// Clase boostrap que carga las unidades
 // validacion de campos vacios
 
     public void buildPanel() {
@@ -69,7 +68,7 @@ public class DptoEditorPanel extends JPanel {
         } else {
             dptoBox.setVisible(true);
             dptoField.setVisible(false);
-            dptoBox.setModel(new DefaultComboBoxModel(dptoService.getAvailableIds()));
+            dptoBox.setModel(new DefaultComboBoxModel(dptoService.getAvailablesIds()));
             nameField.setText("");
             surnameField.setText("");
         }

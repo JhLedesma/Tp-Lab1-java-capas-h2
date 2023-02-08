@@ -2,17 +2,16 @@ package tplab1.presentation.dpto;
 
 import tplab1.application.Dpto;
 import tplab1.application.DptoService;
-
-import javax.swing.*;
+import tplab1.presentation.MainFrame;
 
 public class DptoController {
-    private JFrame frame;
+    private MainFrame frame;
     private DptoService dptoService;
     private DptoTablePanel dptoTablePanel;
     private DptoEditorPanel dptoEditorPanel;
 
 
-    public DptoController(JFrame frame, DptoService dptoService) {
+    public DptoController(MainFrame frame, DptoService dptoService) {
         this.frame = frame;
         this.dptoService = dptoService;
         this.dptoTablePanel = new DptoTablePanel(dptoService, this);
@@ -26,18 +25,16 @@ public class DptoController {
 
     public void showDptoTablePanel() {
         dptoTablePanel.buildPanel();
-        frame.getContentPane().removeAll();
-        frame.getContentPane().add(dptoTablePanel);
-        frame.getContentPane().validate();
-        frame.getContentPane().repaint();
+        frame.repaintWith(dptoTablePanel);
     }
 
     public void showDptoEditorPanel(Dpto dpto) {
         dptoEditorPanel.setDpto(dpto);
         dptoEditorPanel.setFields();
-        frame.getContentPane().removeAll();
-        frame.getContentPane().add(dptoEditorPanel);
-        frame.getContentPane().validate();
-        frame.getContentPane().repaint();
+        frame.repaintWith(dptoEditorPanel);
+    }
+
+    public void showMainPanel() {
+        frame.show();
     }
 }

@@ -11,14 +11,14 @@ public class H2TableManager implements TableManager {
         this.dbManager = dbManager;
     }
 
-    public void createUserTable() {
+    public void createDtoTable() {
         System.out.println("Creating Dpto Table");
         String query = "CREATE TABLE IF NOT EXISTS dpto (id IDENTITY NOT NULL PRIMARY KEY, name VARCHAR(256), surname VARCHAR(256))";
         dbManager.execute(query);
         System.out.println("Dpto Table Created");
     }
 
-    public void dropUserTable() {
+    public void dropDptoTable() {
         System.out.println("Dropping Dpto Table");
         String query = "DROP TABLE IF EXISTS dpto";
         dbManager.execute(query);
@@ -27,8 +27,8 @@ public class H2TableManager implements TableManager {
 
     public void clearDb() {
         System.out.println("Clearing DB");
-        dropUserTable();
-        createUserTable();
+        dropDptoTable();
+        createDtoTable();
         System.out.println("DB Cleared");
     }
 }

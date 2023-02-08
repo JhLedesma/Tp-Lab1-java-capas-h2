@@ -35,14 +35,14 @@ public class DptoService {
         dao.delete(id);
     }
 
-    public String[] getAvailableIds() {
+    public String[] getAvailablesIds() {
         List<String> dtosIds = getContentTable().stream().map(d -> d.getId().toString()).collect(Collectors.toList());
-        List<String> list = getDptosCount().stream().filter(item -> !dtosIds.contains(item)).collect(Collectors.toList());
-        String[] items = new String[list.size()];
-        return list.toArray(items);
+        List<String> availableIds = getDptosNumbers().stream().filter(item -> !dtosIds.contains(item)).collect(Collectors.toList());
+        String[] items = new String[availableIds.size()];
+        return availableIds.toArray(items);
     }
 
-    private ArrayList<String> getDptosCount() {
+    private ArrayList<String> getDptosNumbers() {
         ArrayList<String> items = new ArrayList();
         for (int i = 0; i < 21; i++) {
             int item = i+1;

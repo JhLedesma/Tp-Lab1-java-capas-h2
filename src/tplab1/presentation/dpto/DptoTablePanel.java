@@ -51,7 +51,7 @@ public class DptoTablePanel extends JPanel {
         deleteButton.addActionListener(deleteButtonEffect());
         addButton.addActionListener(addButtonEffect());
         updateButton.addActionListener(updateButtonEffect());
-        backButton.addActionListener(null);
+        backButton.addActionListener(backButtonEffect());
     }
 
     private void showUsersList() {
@@ -83,5 +83,9 @@ public class DptoTablePanel extends JPanel {
                 dptoTableModel.fireTableDataChanged();
             }
         };
+    }
+
+    public ActionListener backButtonEffect() {
+        return e -> dptoController.showMainPanel();
     }
 }
