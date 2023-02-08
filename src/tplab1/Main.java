@@ -9,6 +9,7 @@ import tplab1.persistency.TableManager;
 import tplab1.persistency.h2.DptoH2Dao;
 import tplab1.persistency.h2.H2TableManager;
 import tplab1.presentation.MainFrame;
+import tplab1.presentation.dpto.DptoController;
 
 public class Main {
 
@@ -20,7 +21,9 @@ public class Main {
 
         new DbBootstrapping(tableManager, dptoDAO).exec();
 
-        MainFrame mainFrame = new MainFrame(dptoService);
+        DptoController dptoController = new DptoController(dptoService);
+
+        MainFrame mainFrame = new MainFrame(dptoController);
         mainFrame.show();
     }
 }

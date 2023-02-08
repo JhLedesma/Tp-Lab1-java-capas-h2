@@ -11,8 +11,7 @@ public class DptoController {
     private DptoEditorPanel dptoEditorPanel;
 
 
-    public DptoController(MainFrame frame, DptoService dptoService) {
-        this.frame = frame;
+    public DptoController(DptoService dptoService) {
         this.dptoService = dptoService;
         this.dptoTablePanel = new DptoTablePanel(dptoService, this);
         this.dptoEditorPanel = new DptoEditorPanel(dptoService, this);
@@ -36,5 +35,9 @@ public class DptoController {
 
     public void showMainPanel() {
         frame.show();
+    }
+
+    public void setFrame(MainFrame frame) {
+        this.frame = frame;
     }
 }
