@@ -1,5 +1,6 @@
 package tplab1.application;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Input {
@@ -7,19 +8,30 @@ public class Input {
     private Integer id;
     private Double amount;
     private String description;
+    private LocalDateTime date;
     private Integer dptoId;
 
-    public Input(Double amount, String description, Integer dptoId) {
-        this.amount = amount;
-        this.description = description;
-        this.dptoId = dptoId;
-    }
-
-    public Input(Integer id, Double amount, String description, Integer dptoId) {
+    public Input(Integer id, Double amount, String description, LocalDateTime date, Integer dptoId) {
         this.id = id;
         this.amount = amount;
         this.description = description;
+        this.date = date;
         this.dptoId = dptoId;
+    }
+
+    public Input(Double amount, String description, LocalDateTime date, Integer dptoId) {
+        this.amount = amount;
+        this.description = description;
+        this.date = date;
+        this.dptoId = dptoId;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 
     public Integer getDptoId() {

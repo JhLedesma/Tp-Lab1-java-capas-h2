@@ -55,16 +55,16 @@ public class InputH2Dao implements DAO<Input, Integer> {
 
     private void insert(Input input) {
         System.out.printf("Inserting Input '%s'%n", input);
-        String format = "INSERT INTO input (id, amount, description, dptoId) VALUES ('%s','%s','%s','%s')";
-        String sql = String.format(format, input.getId(), input.getAmount(), input.getDescription(), input.getDptoId());
+        String format = "INSERT INTO input (id, amount, description, date, dptoId) VALUES ('%s','%s','%s','%s','%s')";
+        String sql = String.format(format, input.getId(), input.getAmount(), input.getDescription(), input.getDate(), input.getDptoId());
         dbManager.execute(sql);
         System.out.printf("Input Inserted '%s'%n", input);
     }
 
     private void update(Input input) {
         System.out.printf("Updating Input '%s'%n", input);
-        String format = "UPDATE input set amount = '%s', description = '%s', dptoId = '%s' WHERE id = '%s'";
-        String sql = String.format(format, input.getAmount(), input.getDescription(), input.getDptoId(), input.getId());
+        String format = "UPDATE input set amount = '%s', description = '%s', date = '%s', dptoId = '%s' WHERE id = '%s'";
+        String sql = String.format(format, input.getAmount(), input.getDescription(), input.getDate(), input.getDptoId(), input.getId());
         dbManager.execute(sql);
         System.out.printf("Input Updated '%s'%n", input);
     }
