@@ -1,7 +1,7 @@
 package tplab1.presentation.dpto;
 
-import tplab1.application.Dpto;
-import tplab1.application.DptoService;
+import tplab1.application.model.Dpto;
+import tplab1.application.service.DptoService;
 
 import javax.swing.*;
 import java.awt.*;

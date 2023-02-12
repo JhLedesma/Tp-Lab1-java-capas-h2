@@ -1,6 +1,6 @@
 package tplab1.presentation.dpto;
 
-import tplab1.application.Dpto;
+import tplab1.application.model.Dpto;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;

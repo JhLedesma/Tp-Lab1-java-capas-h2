@@ -19,8 +19,17 @@ public class DbManager {
         this.executeQuery = new ExecuteQuery(connectDB, rollbackSql, disconnectDB);
     }
 
-    public <T> List<T> executeQuery(String query, Mapper<T> mapper) throws NonExistentElement {
+    public <T> List<T> executeQueryToList(String query, Mapper<T> mapper) {
         return executeQuery.execute(query, mapper);
+    }
+
+    public <T> T executeQueryToObject(String query, Mapper<T> mapper) throws NonExistentElement {
+        List<T> list = executeQueryToList(query, mapper);
+        if (!list.isEmpty()) {
+            return list.get(0);
+        } else {
+            throw new NonExistentElement("The result doesn't exist to the query: " + query);
+        }
     }
 
     public void execute(String sql) {

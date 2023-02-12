@@ -1,4 +1,4 @@
-package tplab1.application;
+package tplab1.application.model;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -71,12 +71,12 @@ public class Input {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Input input = (Input) o;
-        return Objects.equals(id, input.id) && Objects.equals(amount, input.amount) && Objects.equals(description, input.description) && Objects.equals(dptoId, input.dptoId);
+        return Objects.equals(id, input.id) && Objects.equals(amount, input.amount) && Objects.equals(description, input.description) && Objects.equals(date, input.date) && Objects.equals(dptoId, input.dptoId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, amount, description, dptoId);
+        return Objects.hash(id, amount, description, date, dptoId);
     }
 
     @Override
@@ -85,7 +85,8 @@ public class Input {
                 "id=" + id +
                 ", amount=" + amount +
                 ", description='" + description + '\'' +
-                ", dptoId='" + dptoId + '\'' +
+                ", date=" + date +
+                ", dptoId=" + dptoId +
                 '}';
     }
 }

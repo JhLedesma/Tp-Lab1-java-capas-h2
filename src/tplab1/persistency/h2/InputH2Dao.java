@@ -1,6 +1,6 @@
 package tplab1.persistency.h2;
 
-import tplab1.application.Input;
+import tplab1.application.model.Input;
 import tplab1.persistency.DAO;
 import tplab1.persistency.DbManager;
 import tplab1.persistency.exception.NonExistentElement;
@@ -30,16 +30,16 @@ public class InputH2Dao implements DAO<Input, Integer> {
         String format = "SELECT * FROM input WHERE id = '%s'";
         String query = String.format(format, id);
 
-        Input input = dbManager.executeQuery(query, InputMapper).get(0);
+        Input input = dbManager.executeQueryToObject(query, InputMapper);
         System.out.printf("Input Found | '%s'%n", input);
         return input;
     }
 
-    public List<Input> getAll() throws NonExistentElement {
+    public List<Input> getAll() {
         System.out.println("Finding all of Inputs");
         String query = "SELECT * FROM input";
 
-        List<Input> inputs = dbManager.executeQuery(query, InputMapper);
+        List<Input> inputs = dbManager.executeQueryToList(query, InputMapper);
         System.out.printf("Inputs Found  | '%s'%n", inputs);
         return inputs;
     }

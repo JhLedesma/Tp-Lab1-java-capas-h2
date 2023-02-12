@@ -1,7 +1,6 @@
 package tplab1.persistency.dbmanager;
 
 import tplab1.persistency.Mapper;
-import tplab1.persistency.exception.NonExistentElement;
 import tplab1.persistency.exception.PersistencyException;
 
 import java.sql.Connection;
@@ -23,7 +22,7 @@ public class ExecuteQuery {
         this.disconnect = disconnect;
     }
 
-    public <T> List<T> execute(String query, Mapper<T> mapper) throws NonExistentElement {
+    public <T> List<T> execute(String query, Mapper<T> mapper) {
         Connection connection = connect.execute();
         List<T> list = new ArrayList<>();
         ResultSet resultSet = getResultSet(query, connection);
@@ -37,11 +36,7 @@ public class ExecuteQuery {
         } finally {
             disconnect.execute(connection);
         }
-        if (!list.isEmpty()) {
-            return list;
-        } else {
-            throw new NonExistentElement("The result doesn't exist to the query: " + query);
-        }
+        return list;
     }
 
     private ResultSet getResultSet(String query, Connection connection) {

@@ -1,6 +1,6 @@
 package tplab1.persistency.h2;
 
-import tplab1.application.Dpto;
+import tplab1.application.model.Dpto;
 import tplab1.persistency.Mapper;
 
 import java.sql.ResultSet;

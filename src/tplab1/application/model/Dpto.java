@@ -1,5 +1,7 @@
-package tplab1.application;
+package tplab1.application.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Dpto {
@@ -7,16 +9,26 @@ public class Dpto {
     private Integer id;
     private String name;
     private String surname;
+    private List<Input> inputs;
+
+    public Dpto(Integer id, String name, String surname, List<Input> inputs) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.inputs = inputs;
+    }
+
+    public Dpto(String name, String surname, List<Input> inputs) {
+        this.name = name;
+        this.surname = surname;
+        this.inputs = inputs;
+    }
 
     public Dpto(Integer id, String name, String surname) {
         this.id = id;
         this.name = name;
         this.surname = surname;
-    }
-
-    public Dpto(String name, String surname) {
-        this.name = name;
-        this.surname = surname;
+        this.inputs = new ArrayList();
     }
 
     public Integer getId() {
@@ -43,17 +55,25 @@ public class Dpto {
         this.surname = surname;
     }
 
+    public List<Input> getInputs() {
+        return inputs;
+    }
+
+    public void setInputs(List<Input> inputs) {
+        this.inputs = inputs;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Dpto dpto = (Dpto) o;
-        return Objects.equals(id, dpto.id) && Objects.equals(name, dpto.name) && Objects.equals(surname, dpto.surname);
+        return Objects.equals(id, dpto.id) && Objects.equals(name, dpto.name) && Objects.equals(surname, dpto.surname) && Objects.equals(inputs, dpto.inputs);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname);
+        return Objects.hash(id, name, surname, inputs);
     }
 
     @Override
@@ -62,6 +82,7 @@ public class Dpto {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
+                ", inputs=" + inputs +
                 '}';
     }
 }

@@ -1,6 +1,6 @@
 package tplab1.persistency;
 
-import tplab1.application.Dpto;
+import tplab1.application.model.Dpto;
 
 public class DbBootstrapping {
 

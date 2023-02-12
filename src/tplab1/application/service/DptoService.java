@@ -1,10 +1,11 @@
-package tplab1.application;
+package tplab1.application.service;
 
+import tplab1.application.exception.ApplicationException;
+import tplab1.application.model.Dpto;
 import tplab1.persistency.DAO;
 import tplab1.persistency.exception.NonExistentElement;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,17 +23,15 @@ public class DptoService {
     }
 
     public List<Dpto> getContentTable() {
-        List<Dpto> content;
-        try {
-            content = dao.getAll();
-        } catch (NonExistentElement e) {
-            content = Collections.emptyList();
-        }
-        return content;
+        return dao.getAll();
     }
 
     public void delete(Integer id) {
-        dao.delete(id);
+        try {
+            dao.delete(id);
+        } catch (NonExistentElement e) {
+            throw new ApplicationException(e.getMessage());
+        }
     }
 
     public String[] getAvailablesIds() {
