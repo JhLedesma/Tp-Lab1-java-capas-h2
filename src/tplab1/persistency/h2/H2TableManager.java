@@ -15,12 +15,14 @@ public class H2TableManager implements TableManager {
     public void createTables() {
         createDtoTable();
         createInputTable();
+        createHabitantTable();
     }
 
     @Override
     public void dropTables() {
         dropDptoTable("input");
         dropDptoTable("dpto");
+        dropDptoTable("habitant");
     }
 
     @Override
@@ -45,6 +47,15 @@ public class H2TableManager implements TableManager {
                 "FOREIGN KEY (dptoId) REFERENCES dpto(id) );";
         dbManager.execute(query);
         System.out.println("Input Table Created");
+    }
+
+    private void createHabitantTable() {
+        System.out.println("Creating Habitant Table");
+        String query = "CREATE TABLE IF NOT EXISTS habitant ( dni IDENTITY NOT NULL PRIMARY KEY," +
+                " name VARCHAR(256), surname VARCHAR(256), dptoId INT, " +
+                "FOREIGN KEY (dptoId) REFERENCES dpto(id) );";
+        dbManager.execute(query);
+        System.out.println("Habitant Table Created");
     }
 
     private void dropDptoTable(String table) {
