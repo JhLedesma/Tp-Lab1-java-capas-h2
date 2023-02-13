@@ -76,8 +76,8 @@ public class DptoH2Dao implements DAO<Dpto, Integer> {
 
     private void insert(Dpto dpto) {
         System.out.printf("Inserting Dpto '%s'%n", dpto);
-        String format = "INSERT INTO dpto (id) VALUES ('%s')";
-        String sql = String.format(format, dpto.getId());
+        String format = "INSERT INTO dpto (id, floor, size) VALUES ('%s', '%s', '%s')";
+        String sql = String.format(format, dpto.getId(), dpto.getFloor(), dpto.getSize());
         dbManager.execute(sql);
         dpto.getInputs().forEach(input -> inputDao.save(input));
         habitantDao.save(dpto.getHabitant());
@@ -86,8 +86,8 @@ public class DptoH2Dao implements DAO<Dpto, Integer> {
 
     private void update(Dpto dpto) {
         System.out.printf("Updating Dpto '%s'%n", dpto);
-        String format = "UPDATE dpto set id = '%s' WHERE id = '%s'";
-        String sql = String.format(format, dpto.getId(), dpto.getId());
+        String format = "UPDATE dpto set floor = '%s', size = '%s' WHERE id = '%s'";
+        String sql = String.format(format, dpto.getFloor(), dpto.getSize(), dpto.getId());
         dbManager.execute(sql);
         dpto.getInputs().forEach(input -> inputDao.save(input));
         habitantDao.save(dpto.getHabitant());

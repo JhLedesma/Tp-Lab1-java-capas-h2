@@ -6,6 +6,8 @@ import tplab1.application.service.DptoService;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.List;
 
 public class DptoEditorPanel extends JPanel {
 
@@ -13,10 +15,14 @@ public class DptoEditorPanel extends JPanel {
     private DptoController dptoController;
     private Dpto dpto;
     private JLabel dptoLabel = new JLabel("Unidad");
+    private JLabel floorLabel = new JLabel("Floor");
+    private JLabel sizeLabel = new JLabel("Size");
     private JLabel dniLabel = new JLabel("Dni");
     private JLabel nameLabel = new JLabel("Nombre");
     private JLabel surnameLabel = new JLabel("Apellido");
     private JTextField dptoField = new JTextField(10);
+    private JTextField floorField = new JTextField(1);
+    private JTextField sizeField = new JTextField(3);
     private JTextField dniField = new JTextField(10);
     private JTextField nameField = new JTextField(10);
     private JTextField surnameField = new JTextField(10);
@@ -31,8 +37,6 @@ public class DptoEditorPanel extends JPanel {
         this.dptoController = dptoController;
     }
 
-// Pantalla principal
-// Boton volver de dpto table
 // validacion de campos vacios
 
     public void buildPanel() {
@@ -50,7 +54,7 @@ public class DptoEditorPanel extends JPanel {
     public ActionListener execSaveButton() {
         return e -> {
             String id = dpto == null ? dptoBox.getSelectedItem().toString() : dptoField.getText();
-            dptoService.save(id, dniField.getText(), nameField.getText(), surnameField.getText());
+            dptoService.save(id, floorField.getText(), sizeField.getText(), dniField.getText(), nameField.getText(), surnameField.getText());
             dptoController.showDptoTablePanel();
         };
     }
@@ -65,6 +69,8 @@ public class DptoEditorPanel extends JPanel {
             dptoField.setVisible(true);
             dptoField.setEnabled(false);
             dptoField.setText(dpto.getId().toString());
+            floorField.setText(dpto.getFloor());
+            sizeField.setText(dpto.getSize().toString());
             dniField.setText(dpto.getHabitant().getDni().toString());
             nameField.setText(dpto.getHabitant().getName());
             surnameField.setText(dpto.getHabitant().getSurname());
@@ -72,6 +78,8 @@ public class DptoEditorPanel extends JPanel {
             dptoBox.setVisible(true);
             dptoField.setVisible(false);
             dptoBox.setModel(new DefaultComboBoxModel(dptoService.getAvailablesIds()));
+            floorField.setText("");
+            sizeField.setText("");
             dniField.setText("");
             nameField.setText("");
             surnameField.setText("");
@@ -84,33 +92,17 @@ public class DptoEditorPanel extends JPanel {
         topPanel.setLayout(new GridLayout(2, 2));
         bottomPanel.setLayout(new FlowLayout());
 
-        JPanel dptoPanel = new JPanel();
-        dptoPanel.setLayout(new FlowLayout());
+        JPanel dptoPanel = createEditPanel(dptoLabel, dptoField);
         dptoBox.setPreferredSize(new Dimension(150, dptoBox.getPreferredSize().height));
-        dptoPanel.add(dptoLabel);
         dptoPanel.add(dptoBox);
-        dptoPanel.add(dptoField);
-        JPanel dniPanel = new JPanel();
-        dniPanel.setLayout(new FlowLayout());
-        dniPanel.add(dniLabel);
-        dniPanel.add(dniField);
-        JPanel namePanel = new JPanel();
-        namePanel.setLayout(new FlowLayout());
-        namePanel.add(nameLabel);
-        namePanel.add(nameField);
-        JPanel surnamePanel = new JPanel();
-        surnamePanel.setLayout(new FlowLayout());
-        surnamePanel.add(surnameLabel);
-        surnamePanel.add(surnameField);
+        JPanel floorPanel = createEditPanel(floorLabel, floorField);
+        JPanel sizePanel = createEditPanel(sizeLabel, sizeField);
+        JPanel dniPanel = createEditPanel(dniLabel, dniField);
+        JPanel namePanel = createEditPanel(nameLabel, nameField);
+        JPanel surnamePanel = createEditPanel(surnameLabel, surnameField);
 
-        topPanel.add(dptoPanel);
-        topPanel.add(dniPanel);
-        topPanel.add(namePanel);
-        topPanel.add(surnamePanel);
-
-        bottomPanel.add(clearButton);
-        bottomPanel.add(saveButton);
-        bottomPanel.add(cancelButton);
+        addPanelToPanel(Arrays.asList(dptoPanel, floorPanel, sizePanel, dniPanel, namePanel, surnamePanel), topPanel);
+        addButtonToPanel(Arrays.asList(clearButton, saveButton, cancelButton), bottomPanel);
 
         this.add(topPanel);
         this.add(bottomPanel);
@@ -120,6 +112,22 @@ public class DptoEditorPanel extends JPanel {
         clearButton.addActionListener(execClearButton());
         saveButton.addActionListener(execSaveButton());
         cancelButton.addActionListener(execCancelButton());
+    }
+
+    private JPanel createEditPanel(JLabel label, JTextField field) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout());
+        panel.add(label);
+        panel.add(field);
+        return panel;
+    }
+
+    private void addPanelToPanel(List<JPanel> childPanels, JPanel panel) {
+        childPanels.forEach(panel::add);
+    }
+
+    private void addButtonToPanel(List<JButton> childButtons, JPanel panel) {
+        childButtons.forEach(panel::add);
     }
 
     public void setDpto(Dpto dpto) {

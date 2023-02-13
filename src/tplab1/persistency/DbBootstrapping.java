@@ -16,17 +16,17 @@ public class DbBootstrapping {
     public void exec() {
         tableManager.clearDb();
 
-        Dpto dpto = new Dpto(1);
-        Dpto dpto2 = new Dpto(2);
-        Dpto dpto5 = new Dpto(5);
-        Dpto dpto6 = new Dpto(6);
-        Dpto dpto10 = new Dpto(10);
-        Dpto dpto12 = new Dpto(12);
-        Dpto dpto14 = new Dpto(14);
-        Dpto dpto15 = new Dpto(15);
-        Dpto dpto17 = new Dpto(17);
-        Dpto dpto19 = new Dpto(19);
-        Dpto dpto20 = new Dpto(20);
+        Dpto dpto = new Dpto(1, "A", 35);
+        Dpto dpto2 = new Dpto(2, "A", 35);
+        Dpto dpto5 = new Dpto(5, "A", 35);
+        Dpto dpto6 = new Dpto(6, "B", 35);
+        Dpto dpto10 = new Dpto(10, "B", 40);
+        Dpto dpto12 = new Dpto(12, "C", 40);
+        Dpto dpto14 = new Dpto(14, "C", 40);
+        Dpto dpto15 = new Dpto(15, "C", 40);
+        Dpto dpto17 = new Dpto(17, "D", 45);
+        Dpto dpto19 = new Dpto(19, "D", 45);
+        Dpto dpto20 = new Dpto(20, "D", 45);
 
         Habitant habitant = new Habitant(113012, "Jesus", "Ledesma", dpto.getId());
         Habitant habitant2 = new Habitant(221023, "Lucas", "Alario", dpto2.getId());

@@ -35,7 +35,7 @@ public class H2TableManager implements TableManager {
 
     private void createDtoTable() {
         System.out.println("Creating Dpto Table");
-        String query = "CREATE TABLE IF NOT EXISTS dpto ( id IDENTITY NOT NULL PRIMARY KEY, name VARCHAR(256), surname VARCHAR(256) );";
+        String query = "CREATE TABLE IF NOT EXISTS dpto ( id IDENTITY NOT NULL PRIMARY KEY, floor VARCHAR(256), size INT );";
         dbManager.execute(query);
         System.out.println("Dpto Table Created");
     }

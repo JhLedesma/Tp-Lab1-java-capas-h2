@@ -18,9 +18,9 @@ public class DptoService {
         this.dao = dao;
     }
 
-    public void save(String id, String dni, String name, String surname) {
+    public void save(String id, String floor, String size, String dni, String name, String surname) {
         int dptoId = Integer.parseInt(id);
-        Dpto dpto = new Dpto(dptoId, new Habitant(Integer.parseInt(dni), name, surname, dptoId));
+        Dpto dpto = new Dpto(dptoId, floor, Integer.parseInt(size), new Habitant(Integer.parseInt(dni), name, surname, dptoId));
         dao.save(dpto);
     }
 
