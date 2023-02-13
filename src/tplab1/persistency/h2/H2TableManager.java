@@ -63,8 +63,7 @@ public class H2TableManager implements TableManager {
     private void createExpenseTable() {
         System.out.println("Creating Expense Table");
         String query = "CREATE TABLE IF NOT EXISTS expense ( id IDENTITY NOT NULL PRIMARY KEY," +
-                " amount DECIMAL, description VARCHAR(256), date TIMESTAMP, dptoId INT, " +
-                "FOREIGN KEY (dptoId) REFERENCES dpto(id) );";
+                " amount DECIMAL, description VARCHAR(256), date TIMESTAMP;";
         dbManager.execute(query);
         System.out.println("Expense Table Created");
     }
