@@ -1,4 +1,4 @@
-package tplab1.persistency.h2;
+package tplab1.persistency.h2.dao;
 
 import tplab1.application.model.Dpto;
 import tplab1.application.model.Habitant;
@@ -6,6 +6,7 @@ import tplab1.application.model.Input;
 import tplab1.persistency.DAO;
 import tplab1.persistency.DbManager;
 import tplab1.persistency.exception.NonExistentElement;
+import tplab1.persistency.h2.mapper.DptoMapper;
 
 import java.util.List;
 import java.util.stream.Collectors;

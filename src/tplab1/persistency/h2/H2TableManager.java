@@ -16,12 +16,14 @@ public class H2TableManager implements TableManager {
         createDtoTable();
         createInputTable();
         createHabitantTable();
+        createExpenseTable();
     }
 
     @Override
     public void dropTables() {
         dropDptoTable("input");
         dropDptoTable("habitant");
+        dropDptoTable("expense");
         dropDptoTable("dpto");
     }
 
@@ -41,7 +43,7 @@ public class H2TableManager implements TableManager {
     }
 
     private void createInputTable() {
-        System.out.println("Creating Dpto Table");
+        System.out.println("Creating Input Table");
         String query = "CREATE TABLE IF NOT EXISTS input ( id IDENTITY NOT NULL PRIMARY KEY," +
                 " amount DECIMAL, description VARCHAR(256), date TIMESTAMP, dptoId INT, " +
                 "FOREIGN KEY (dptoId) REFERENCES dpto(id) );";
@@ -56,6 +58,15 @@ public class H2TableManager implements TableManager {
                 "FOREIGN KEY (dptoId) REFERENCES dpto(id) );";
         dbManager.execute(query);
         System.out.println("Habitant Table Created");
+    }
+
+    private void createExpenseTable() {
+        System.out.println("Creating Expense Table");
+        String query = "CREATE TABLE IF NOT EXISTS expense ( id IDENTITY NOT NULL PRIMARY KEY," +
+                " amount DECIMAL, description VARCHAR(256), date TIMESTAMP, dptoId INT, " +
+                "FOREIGN KEY (dptoId) REFERENCES dpto(id) );";
+        dbManager.execute(query);
+        System.out.println("Expense Table Created");
     }
 
     private void dropDptoTable(String table) {

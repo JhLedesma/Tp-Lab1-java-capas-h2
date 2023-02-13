@@ -8,10 +8,10 @@ import tplab1.persistency.DAO;
 import tplab1.persistency.DbBootstrapping;
 import tplab1.persistency.DbManager;
 import tplab1.persistency.TableManager;
-import tplab1.persistency.h2.DptoH2Dao;
 import tplab1.persistency.h2.H2TableManager;
-import tplab1.persistency.h2.HabitantH2Dao;
-import tplab1.persistency.h2.InputH2Dao;
+import tplab1.persistency.h2.dao.DptoH2Dao;
+import tplab1.persistency.h2.dao.HabitantH2Dao;
+import tplab1.persistency.h2.dao.InputH2Dao;
 import tplab1.presentation.MainFrame;
 import tplab1.presentation.dpto.DptoController;
 

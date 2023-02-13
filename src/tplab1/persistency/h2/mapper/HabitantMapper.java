@@ -1,4 +1,4 @@
-package tplab1.persistency.h2;
+package tplab1.persistency.h2.mapper;
 
 import tplab1.application.model.Habitant;
 import tplab1.persistency.Mapper;

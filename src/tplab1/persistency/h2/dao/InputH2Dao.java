@@ -1,16 +1,17 @@
-package tplab1.persistency.h2;
+package tplab1.persistency.h2.dao;
 
 import tplab1.application.model.Input;
 import tplab1.persistency.DAO;
 import tplab1.persistency.DbManager;
 import tplab1.persistency.exception.NonExistentElement;
+import tplab1.persistency.h2.mapper.InputMapper;
 
 import java.util.List;
 
 public class InputH2Dao implements DAO<Input, Integer> {
 
     private DbManager dbManager;
-    private InputMapper InputMapper = new InputMapper();
+    private tplab1.persistency.h2.mapper.InputMapper InputMapper = new InputMapper();
 
     public InputH2Dao(DbManager dbManager) {
         this.dbManager = dbManager;
