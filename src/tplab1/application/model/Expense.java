@@ -9,21 +9,18 @@ public class Expense {
     private Double amount;
     private String description;
     private LocalDateTime date;
-    private Integer dptoId;
 
-    public Expense(Integer id, Double amount, String description, LocalDateTime date, Integer dptoId) {
+    public Expense(Integer id, Double amount, String description, LocalDateTime date) {
         this.id = id;
         this.amount = amount;
         this.description = description;
         this.date = date;
-        this.dptoId = dptoId;
     }
 
-    public Expense(Double amount, String description, LocalDateTime date, Integer dptoId) {
+    public Expense(Double amount, String description, LocalDateTime date) {
         this.amount = amount;
         this.description = description;
         this.date = date;
-        this.dptoId = dptoId;
     }
 
     public LocalDateTime getDate() {
@@ -32,14 +29,6 @@ public class Expense {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
-    }
-
-    public Integer getDptoId() {
-        return dptoId;
-    }
-
-    public void setDptoId(Integer dptoId) {
-        this.dptoId = dptoId;
     }
 
     public Integer getId() {
@@ -71,12 +60,12 @@ public class Expense {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Expense expense = (Expense) o;
-        return Objects.equals(id, expense.id) && Objects.equals(amount, expense.amount) && Objects.equals(description, expense.description) && Objects.equals(date, expense.date) && Objects.equals(dptoId, expense.dptoId);
+        return Objects.equals(id, expense.id) && Objects.equals(amount, expense.amount) && Objects.equals(description, expense.description) && Objects.equals(date, expense.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, amount, description, date, dptoId);
+        return Objects.hash(id, amount, description, date);
     }
 
     @Override
@@ -86,7 +75,6 @@ public class Expense {
                 ", amount=" + amount +
                 ", description='" + description + '\'' +
                 ", date=" + date +
-                ", dptoId=" + dptoId +
                 '}';
     }
 }

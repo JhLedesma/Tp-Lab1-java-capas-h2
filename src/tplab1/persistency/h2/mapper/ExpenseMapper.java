@@ -15,7 +15,6 @@ public class ExpenseMapper implements Mapper<Expense> {
         Double amount = resultSet.getDouble("amount");
         String description = resultSet.getString("description");
         LocalDateTime date = resultSet.getTimestamp("date").toLocalDateTime();
-        int dptoId = resultSet.getInt("dptoId");
-        return new Expense(id, amount, description, date, dptoId);
+        return new Expense(id, amount, description, date);
     }
 }

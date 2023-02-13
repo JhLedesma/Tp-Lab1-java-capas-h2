@@ -57,16 +57,16 @@ public class ExpenseH2Dao implements DAO<Expense, Integer> {
 
     private void insert(Expense expense) {
         System.out.printf("Inserting Expense '%s'%n", expense);
-        String format = "INSERT INTO expense (id, amount, description, date, dptoId) VALUES ('%s','%s','%s','%s','%s')";
-        String sql = String.format(format, expense.getId(), expense.getAmount(), expense.getDescription(), expense.getDate(), expense.getDptoId());
+        String format = "INSERT INTO expense (id, amount, description, date) VALUES ('%s','%s','%s','%s')";
+        String sql = String.format(format, expense.getId(), expense.getAmount(), expense.getDescription(), expense.getDate());
         dbManager.execute(sql);
         System.out.printf("expense Inserted '%s'%n", expense);
     }
 
     private void update(Expense expense) {
         System.out.printf("Updating expense '%s'%n", expense);
-        String format = "UPDATE expense set amount = '%s', description = '%s', date = '%s', dptoId = '%s' WHERE id = '%s'";
-        String sql = String.format(format, expense.getAmount(), expense.getDescription(), expense.getDate(), expense.getDptoId(), expense.getId());
+        String format = "UPDATE expense set amount = '%s', description = '%s', date = '%s' WHERE id = '%s'";
+        String sql = String.format(format, expense.getAmount(), expense.getDescription(), expense.getDate(), expense.getId());
         dbManager.execute(sql);
         System.out.printf("Expense Updated '%s'%n", expense);
     }

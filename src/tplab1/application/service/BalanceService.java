@@ -22,7 +22,7 @@ public class BalanceService {
         try {
             Dpto dpto = dptoDAO.get(dptoId);
             Double inputAmount = getInputSum(month, dptoId);
-            Double expenseAmount = getExpenseSum(month, dptoId);
+            Double expenseAmount = getExpenseSum(month);
             MonthlyBalance monthlyBalance = new MonthlyBalance(dpto, inputAmount, expenseAmount);
             System.out.println("Monthly Balance Built | " + monthlyBalance);
             return monthlyBalance;
@@ -48,9 +48,9 @@ public class BalanceService {
                 .orElse(0.0);
     }
 
-    private Double getExpenseSum(int month, Integer dptoId) {
+    private Double getExpenseSum(int month) {
         return expenseDao.getAll().stream()
-                .filter(expense -> expense.getDate().getMonth().getValue() == month && expense.getDptoId().equals(dptoId))
+                .filter(expense -> expense.getDate().getMonth().getValue() == month)
                 .map(Expense::getAmount)
                 .reduce(Double::sum)
                 .orElse(0.0);
