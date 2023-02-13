@@ -9,10 +9,11 @@ import java.util.List;
 public class DptoTableModel extends AbstractTableModel {
 
     private static final int ID_COLUM = 0;
-    private static final int NAME_COLUM = 1;
-    private static final int SURNAME_COLUM = 2;
-    private String[] columNames = {"Dpto", "Name", "Surname"};
-    private Class[] columTypes = {Integer.class, String.class, String.class};
+    private static final int DNI_COLUM = 1;
+    private static final int NAME_COLUM = 2;
+    private static final int SURNAME_COLUM = 3;
+    private String[] columNames = {"Dpto", "Dni", "Nombre", "Apellido"};
+    private Class[] columTypes = {Integer.class, Integer.class, String.class, String.class};
     private List<Dpto> content;
 
     public DptoTableModel() {
@@ -47,11 +48,14 @@ public class DptoTableModel extends AbstractTableModel {
             case ID_COLUM:
                 result = dpto.getId();
                 break;
+            case DNI_COLUM:
+                result = dpto.getHabitant().getDni();
+                break;
             case NAME_COLUM:
-                result = dpto.getName();
+                result = dpto.getHabitant().getName();
                 break;
             case SURNAME_COLUM:
-                result = dpto.getSurname();
+                result = dpto.getHabitant().getSurname();
                 break;
             default:
                 result = "";

@@ -21,8 +21,8 @@ public class H2TableManager implements TableManager {
     @Override
     public void dropTables() {
         dropDptoTable("input");
-        dropDptoTable("dpto");
         dropDptoTable("habitant");
+        dropDptoTable("dpto");
     }
 
     @Override

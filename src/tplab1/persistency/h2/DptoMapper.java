@@ -11,8 +11,6 @@ public class DptoMapper implements Mapper<Dpto> {
     @Override
     public Dpto map(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
-        String name = resultSet.getString("name");
-        String surname = resultSet.getString("surname");
-        return new Dpto(id, name, surname);
+        return new Dpto(id);
     }
 }

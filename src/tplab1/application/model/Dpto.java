@@ -7,28 +7,31 @@ import java.util.Objects;
 public class Dpto {
 
     private Integer id;
-    private String name;
-    private String surname;
+    private Habitant habitant;
     private List<Input> inputs;
 
-    public Dpto(Integer id, String name, String surname, List<Input> inputs) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.inputs = inputs;
-    }
 
-    public Dpto(String name, String surname, List<Input> inputs) {
-        this.name = name;
-        this.surname = surname;
-        this.inputs = inputs;
-    }
-
-    public Dpto(Integer id, String name, String surname) {
+    public Dpto(Integer id) {
         this.id = id;
-        this.name = name;
-        this.surname = surname;
+        this.habitant = null;
         this.inputs = new ArrayList();
+    }
+
+    public Dpto(Integer id, Habitant habitant) {
+        this.id = id;
+        this.habitant = habitant;
+        this.inputs = new ArrayList();
+    }
+
+    public Dpto(Integer id, Habitant habitant, List<Input> inputs) {
+        this.id = id;
+        this.habitant = habitant;
+        this.inputs = inputs;
+    }
+
+    public Dpto(Habitant habitant, List<Input> inputs) {
+        this.habitant = habitant;
+        this.inputs = inputs;
     }
 
     public Integer getId() {
@@ -39,20 +42,12 @@ public class Dpto {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Habitant getHabitant() {
+        return habitant;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setHabitant(Habitant habitant) {
+        this.habitant = habitant;
     }
 
     public List<Input> getInputs() {
@@ -68,20 +63,19 @@ public class Dpto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Dpto dpto = (Dpto) o;
-        return Objects.equals(id, dpto.id) && Objects.equals(name, dpto.name) && Objects.equals(surname, dpto.surname) && Objects.equals(inputs, dpto.inputs);
+        return Objects.equals(id, dpto.id) && Objects.equals(habitant, dpto.habitant) && Objects.equals(inputs, dpto.inputs);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, inputs);
+        return Objects.hash(id, habitant, inputs);
     }
 
     @Override
     public String toString() {
         return "Dpto{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
+                ", habitant=" + habitant +
                 ", inputs=" + inputs +
                 '}';
     }

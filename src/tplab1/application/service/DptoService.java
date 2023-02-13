@@ -2,6 +2,7 @@ package tplab1.application.service;
 
 import tplab1.application.exception.ApplicationException;
 import tplab1.application.model.Dpto;
+import tplab1.application.model.Habitant;
 import tplab1.persistency.DAO;
 import tplab1.persistency.exception.NonExistentElement;
 
@@ -17,8 +18,9 @@ public class DptoService {
         this.dao = dao;
     }
 
-    public void save(String id, String name, String surname) {
-        Dpto dpto = new Dpto(Integer.parseInt(id), name, surname);
+    public void save(String id, String dni, String name, String surname) {
+        int dptoId = Integer.parseInt(id);
+        Dpto dpto = new Dpto(dptoId, new Habitant(Integer.parseInt(dni), name, surname, dptoId));
         dao.save(dpto);
     }
 

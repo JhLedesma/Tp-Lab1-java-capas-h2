@@ -1,6 +1,7 @@
 package tplab1.persistency.h2;
 
 import tplab1.application.model.Dpto;
+import tplab1.application.model.Habitant;
 import tplab1.application.model.Input;
 import tplab1.persistency.DAO;
 import tplab1.persistency.DbManager;
@@ -14,11 +15,13 @@ public class DptoH2Dao implements DAO<Dpto, Integer> {
     private DbManager dbManager;
     private DptoMapper dptoMapper = new DptoMapper();
     private DAO<Input, Integer> inputDao;
+    private DAO<Habitant, Integer> habitantDao;
 
 
-    public DptoH2Dao(DbManager dbManager, DAO<Input, Integer> inputDao) {
+    public DptoH2Dao(DbManager dbManager, DAO<Input, Integer> inputDao, DAO<Habitant, Integer> habitantDao) {
         this.dbManager = dbManager;
         this.inputDao = inputDao;
+        this.habitantDao = habitantDao;
     }
 
     public void save(Dpto dpto) {
@@ -37,6 +40,7 @@ public class DptoH2Dao implements DAO<Dpto, Integer> {
 
         Dpto dpto = dbManager.executeQueryToObject(query, dptoMapper);
         dpto.setInputs(getInputs(id));
+        dpto.setHabitant(getHabitant(id));
         System.out.printf("Dpto Found | '%s'%n", dpto);
         return dpto;
     }
@@ -47,6 +51,7 @@ public class DptoH2Dao implements DAO<Dpto, Integer> {
 
         List<Dpto> dptos = dbManager.executeQueryToList(query, dptoMapper);
         dptos.forEach(dpto -> dpto.setInputs(getInputs(dpto.getId())));
+        dptos.forEach(dpto -> dpto.setHabitant(getHabitant(dpto.getId())));
         System.out.printf("Dptos Found  | '%s'%n", dptos);
         return dptos;
     }
@@ -56,36 +61,44 @@ public class DptoH2Dao implements DAO<Dpto, Integer> {
         System.out.printf("Deleting dptos | Id: '%s'%n", id);
         String format = "DELETE FROM dpto WHERE id = '%s'";
         String sql = String.format(format, id);
-        get(id).getInputs().forEach(input -> {
+        Dpto dpto = get(id);
+        dpto.getInputs().forEach(input -> {
             try {
                 inputDao.delete(input.getId());
             } catch (NonExistentElement e) {
                 e.printStackTrace();
             }
         });
+        habitantDao.delete(dpto.getHabitant().getDni());
         dbManager.execute(sql);
         System.out.printf("Dpto Deleted | Id: '%s'%n", id);
     }
 
     private void insert(Dpto dpto) {
         System.out.printf("Inserting Dpto '%s'%n", dpto);
-        String format = "INSERT INTO dpto (id, name, surname) VALUES ('%s','%s', '%s')";
-        String sql = String.format(format, dpto.getId(), dpto.getName(), dpto.getSurname());
+        String format = "INSERT INTO dpto (id) VALUES ('%s')";
+        String sql = String.format(format, dpto.getId());
         dbManager.execute(sql);
         dpto.getInputs().forEach(input -> inputDao.save(input));
+        habitantDao.save(dpto.getHabitant());
         System.out.printf("Dpto Inserted '%s'%n", dpto);
     }
 
     private void update(Dpto dpto) {
         System.out.printf("Updating Dpto '%s'%n", dpto);
-        String format = "UPDATE dpto set name = '%s', surname = '%s' WHERE id = '%s'";
-        String sql = String.format(format, dpto.getName(), dpto.getSurname(), dpto.getId());
+        String format = "UPDATE dpto set id = '%s' WHERE id = '%s'";
+        String sql = String.format(format, dpto.getId(), dpto.getId());
         dbManager.execute(sql);
         dpto.getInputs().forEach(input -> inputDao.save(input));
+        habitantDao.save(dpto.getHabitant());
         System.out.printf("Dpto Updated '%s'%n", dpto);
     }
 
     private List<Input> getInputs(Integer dptoId) {
         return inputDao.getAll().stream().filter(input -> input.getDptoId().equals(dptoId)).collect(Collectors.toList());
+    }
+
+    private Habitant getHabitant(Integer dptoId) {
+        return habitantDao.getAll().stream().filter(habitant -> habitant.getDptoId().equals(dptoId)).collect(Collectors.toList()).get(0);
     }
 }

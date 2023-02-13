@@ -63,7 +63,7 @@ public class Habitant {
 
     @Override
     public String toString() {
-        return "Renter{" +
+        return "Habitant{" +
                 "dni=" + dni +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +

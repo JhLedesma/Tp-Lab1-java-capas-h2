@@ -1,6 +1,7 @@
 package tplab1.persistency;
 
 import tplab1.application.model.Dpto;
+import tplab1.application.model.Habitant;
 
 public class DbBootstrapping {
 
@@ -14,17 +15,43 @@ public class DbBootstrapping {
 
     public void exec() {
         tableManager.clearDb();
-        Dpto dpto = new Dpto(1, "Jesus", "Ledesma");
-        Dpto dpto2 = new Dpto(2, "Lucas", "Alario");
-        Dpto dpto5 = new Dpto(5, "Pablo", "Barrios");
-        Dpto dpto6 = new Dpto(6, "Florencia", "Fernandez");
-        Dpto dpto10 = new Dpto(10, "Cristian", "Palacios");
-        Dpto dpto12 = new Dpto(12, "Lucia", "Reyes");
-        Dpto dpto14 = new Dpto(12, "Carlos", "Rosas");
-        Dpto dpto15 = new Dpto(15, "Norma", "Sarmiento");
-        Dpto dpto17 = new Dpto(17, "Martin", "Lopez");
-        Dpto dpto19 = new Dpto(19, "Laura", "Alvarez");
-        Dpto dpto20 = new Dpto(20, "Marcela", "Gonzalez");
+
+        Dpto dpto = new Dpto(1);
+        Dpto dpto2 = new Dpto(2);
+        Dpto dpto5 = new Dpto(5);
+        Dpto dpto6 = new Dpto(6);
+        Dpto dpto10 = new Dpto(10);
+        Dpto dpto12 = new Dpto(12);
+        Dpto dpto14 = new Dpto(14);
+        Dpto dpto15 = new Dpto(15);
+        Dpto dpto17 = new Dpto(17);
+        Dpto dpto19 = new Dpto(19);
+        Dpto dpto20 = new Dpto(20);
+
+        Habitant habitant = new Habitant(113012, "Jesus", "Ledesma", dpto.getId());
+        Habitant habitant2 = new Habitant(221023, "Lucas", "Alario", dpto2.getId());
+        Habitant habitant5 = new Habitant(533011, "Pablo", "Barrios", dpto5.getId());
+        Habitant habitant6 = new Habitant(632200, "Florencia", "Fernandez", dpto6.getId());
+        Habitant habitant10 = new Habitant(103011, "Cristian", "Palacios", dpto10.getId());
+        Habitant habitant12 = new Habitant(123012, "Lucia", "Reyes", dpto12.getId());
+        Habitant habitant14 = new Habitant(143012, "Carlos", "Rosas", dpto14.getId());
+        Habitant habitant15 = new Habitant(153022, "Norma", "Sarmiento", dpto15.getId());
+        Habitant habitant17 = new Habitant(177012, "Martin", "Lopez", dpto17.getId());
+        Habitant habitant19 = new Habitant(193999, "Laura", "Alvarez", dpto19.getId());
+        Habitant habitant20 = new Habitant(203733, "Marcela", "Gonzalez", dpto20.getId());
+
+        dpto.setHabitant(habitant);
+        dpto2.setHabitant(habitant2);
+        dpto5.setHabitant(habitant5);
+        dpto6.setHabitant(habitant6);
+        dpto10.setHabitant(habitant10);
+        dpto12.setHabitant(habitant12);
+        dpto14.setHabitant(habitant14);
+        dpto15.setHabitant(habitant15);
+        dpto17.setHabitant(habitant17);
+        dpto19.setHabitant(habitant19);
+        dpto20.setHabitant(habitant20);
+
         dptoDAO.save(dpto);
         dptoDAO.save(dpto2);
         dptoDAO.save(dpto5);
