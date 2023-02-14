@@ -2,6 +2,13 @@ package tplab1.persistency;
 
 import tplab1.application.model.Dpto;
 import tplab1.application.model.Habitant;
+import tplab1.application.model.Input;
+
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 public class DbBootstrapping {
 
@@ -52,6 +59,13 @@ public class DbBootstrapping {
         dpto19.setHabitant(habitant19);
         dpto20.setHabitant(habitant20);
 
+        addInputs(dpto, 25000.0, 20, "Alquiler");
+        addInputs(dpto10, 35000.0, 10, "Alquiler");
+        addInputs(dpto15, 45000.0, 5, "Alquiler");
+        addInputs(dpto, 2000.0, 20, "Luz");
+        addInputs(dpto10, 3000.0, 10, "Luz");
+        addInputs(dpto15, 4000.0, 5, "Luz");
+
         dptoDAO.save(dpto);
         dptoDAO.save(dpto2);
         dptoDAO.save(dpto5);
@@ -63,5 +77,13 @@ public class DbBootstrapping {
         dptoDAO.save(dpto17);
         dptoDAO.save(dpto19);
         dptoDAO.save(dpto20);
+    }
+
+    private void addInputs(Dpto dpto, double rent, Integer maxDay, String description) {
+        List<Input> inputs = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+                .stream()
+                .map(month -> new Input(rent, description, LocalDateTime.of(2022, month, new Random().nextInt(maxDay) + 1, 10, 12), dpto.getId()))
+                .collect(Collectors.toList());
+        dpto.getInputs().addAll(inputs);
     }
 }
