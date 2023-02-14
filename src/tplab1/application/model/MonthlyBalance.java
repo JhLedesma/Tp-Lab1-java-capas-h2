@@ -4,16 +4,16 @@ public class MonthlyBalance {
 
     private Dpto dpto;
     private Double inputAmount;
-    private Double expenseAmount;
+    private Double outputAmount;
 
-    public MonthlyBalance(Dpto dpto, Double inputAmount, Double expenseAmount) {
+    public MonthlyBalance(Dpto dpto, Double inputAmount, Double outputAmount) {
         this.dpto = dpto;
         this.inputAmount = inputAmount;
-        this.expenseAmount = expenseAmount;
+        this.outputAmount = outputAmount;
     }
 
     public Double getBalanceAmount() {
-        return inputAmount - expenseAmount;
+        return inputAmount - outputAmount;
     }
 
     public Dpto getDpto() {
@@ -32,11 +32,11 @@ public class MonthlyBalance {
         this.inputAmount = inputAmount;
     }
 
-    public Double getExpenseAmount() {
-        return expenseAmount;
+    public Double getOutputAmount() {
+        return outputAmount;
     }
 
-    public void setExpenseAmount(Double expenseAmount) {
-        this.expenseAmount = expenseAmount;
+    public void setOutputAmount(Double outputAmount) {
+        this.outputAmount = outputAmount;
     }
 }

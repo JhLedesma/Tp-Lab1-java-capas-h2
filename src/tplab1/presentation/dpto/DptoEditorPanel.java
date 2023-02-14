@@ -37,8 +37,6 @@ public class DptoEditorPanel extends JPanel {
         this.dptoController = dptoController;
     }
 
-// validacion de campos vacios
-
     public void buildPanel() {
         BoxLayout verticalLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(verticalLayout);
