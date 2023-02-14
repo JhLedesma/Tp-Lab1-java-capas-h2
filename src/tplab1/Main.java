@@ -31,7 +31,7 @@ public class Main {
         DAO<Output, Integer> outputDAO = new OutputH2Dao(dbManager);
 
         DptoService dptoService = new DptoService(dptoDAO);
-        InputService inputService = new InputService(inputDAO);
+        InputService inputService = new InputService(inputDAO, dptoDAO);
 
         new DbBootstrapping(tableManager, dptoDAO, outputDAO).exec();
 

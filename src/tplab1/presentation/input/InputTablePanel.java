@@ -60,7 +60,7 @@ public class InputTablePanel extends JPanel {
     }
 
     public ActionListener addButtonEffect() {
-        return null; //TODO inputController.showDptoEditorPanel(null);
+        return e -> inputController.showInputEditorPanel(null);
     }
 
     public ActionListener updateButtonEffect() {
@@ -68,7 +68,7 @@ public class InputTablePanel extends JPanel {
             int selectedRow = inputTable.getSelectedRow();
             if (selectedRow >= 0) {
                 Input input = inputTableModel.getContent().get(selectedRow);
-                //TODO dptoController.showDptoEditorPanel(dpto);
+                inputController.showInputEditorPanel(input);
             }
         };
     }
