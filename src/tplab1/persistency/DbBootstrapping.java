@@ -3,6 +3,7 @@ package tplab1.persistency;
 import tplab1.application.model.Dpto;
 import tplab1.application.model.Habitant;
 import tplab1.application.model.Input;
+import tplab1.application.model.Output;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -14,10 +15,12 @@ public class DbBootstrapping {
 
     private TableManager tableManager;
     private DAO<Dpto, Integer> dptoDAO;
+    private DAO<Output, Integer> outputDAO;
 
-    public DbBootstrapping(TableManager tableManager, DAO<Dpto, Integer> dptoDAO) {
+    public DbBootstrapping(TableManager tableManager, DAO<Dpto, Integer> dptoDAO, DAO<Output, Integer> outputDAO) {
         this.tableManager = tableManager;
         this.dptoDAO = dptoDAO;
+        this.outputDAO = outputDAO;
     }
 
     public void exec() {
@@ -66,6 +69,9 @@ public class DbBootstrapping {
         addInputs(dpto10, 3000.0, 10, "Luz");
         addInputs(dpto15, 4000.0, 5, "Luz");
 
+        addOutputs(70000.0, 5, "Encargado");
+        addOutputs(30000.0, 5, "Luz General");
+
         dptoDAO.save(dpto);
         dptoDAO.save(dpto2);
         dptoDAO.save(dpto5);
@@ -79,11 +85,18 @@ public class DbBootstrapping {
         dptoDAO.save(dpto20);
     }
 
-    private void addInputs(Dpto dpto, double rent, Integer maxDay, String description) {
+    private void addInputs(Dpto dpto, double amount, Integer maxDay, String description) {
         List<Input> inputs = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
                 .stream()
-                .map(month -> new Input(rent, description, LocalDateTime.of(2022, month, new Random().nextInt(maxDay) + 1, 10, 12), dpto.getId()))
+                .map(month -> new Input(amount, description, LocalDateTime.of(2022, month, new Random().nextInt(maxDay) + 1, 10, 12), dpto.getId()))
                 .collect(Collectors.toList());
         dpto.getInputs().addAll(inputs);
+    }
+
+    private void addOutputs(double amount, Integer maxDay, String description) {
+        Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+                .stream()
+                .map(month -> new Output(amount, description, LocalDateTime.of(2022, month, new Random().nextInt(maxDay) + 1, 10, 12)))
+                .forEach(output -> outputDAO.save(output));
     }
 }

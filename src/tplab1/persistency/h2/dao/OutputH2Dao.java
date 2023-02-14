@@ -20,8 +20,12 @@ public class OutputH2Dao implements DAO<Output, Integer> {
 
     public void save(Output output) {
         try {
-            get(output.getId());
-            update(output);
+            if(output.getId() != null) {
+                get(output.getId());
+                update(output);
+            } else {
+                insert(output);
+            }
         } catch (NonExistentElement e) {
             insert(output);
         }
@@ -57,8 +61,14 @@ public class OutputH2Dao implements DAO<Output, Integer> {
 
     private void insert(Output output) {
         System.out.printf("Inserting Output '%s'%n", output);
-        String format = "INSERT INTO output (id, amount, description, date) VALUES ('%s','%s','%s','%s')";
-        String sql = String.format(format, output.getId(), output.getAmount(), output.getDescription(), output.getDate());
+        String sql;
+        if(output.getId() != null) {
+            String format = "INSERT INTO output (id, amount, description, date) VALUES ('%s','%s','%s','%s')";
+            sql = String.format(format, output.getId(), output.getAmount(), output.getDescription(), output.getDate());
+        } else {
+            String format = "INSERT INTO output (amount, description, date) VALUES ('%s','%s','%s')";
+            sql = String.format(format, output.getAmount(), output.getDescription(), output.getDate());
+        }
         dbManager.execute(sql);
         System.out.printf("output Inserted '%s'%n", output);
     }
