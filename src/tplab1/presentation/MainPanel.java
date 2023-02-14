@@ -12,6 +12,7 @@ public class MainPanel extends JPanel {
     private JButton dptosButton = new JButton("Departamentos");
     private JButton inputButton = new JButton("Ingresos");
     private JButton outputButton = new JButton("Gastos");
+    private JButton monthlyBalanceButton = new JButton("Balance Mensual");
 
 
     public MainPanel(DptoController dptoController) {
@@ -32,6 +33,7 @@ public class MainPanel extends JPanel {
         this.add(dptosButton);
         this.add(inputButton);
         this.add(outputButton);
+        this.add(monthlyBalanceButton);
     }
 
     private void addListeners() {

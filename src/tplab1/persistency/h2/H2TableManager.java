@@ -16,7 +16,7 @@ public class H2TableManager implements TableManager {
         createDtoTable();
         createInputTable();
         createHabitantTable();
-        createExpenseTable();
+        createOutputTable();
     }
 
     @Override
@@ -60,10 +60,10 @@ public class H2TableManager implements TableManager {
         System.out.println("Habitant Table Created");
     }
 
-    private void createExpenseTable() {
+    private void createOutputTable() {
         System.out.println("Creating Output Table");
         String query = "CREATE TABLE IF NOT EXISTS output ( id IDENTITY NOT NULL PRIMARY KEY," +
-                " amount DECIMAL, description VARCHAR(256), date TIMESTAMP;";
+                " amount DECIMAL, description VARCHAR(256), date TIMESTAMP);";
         dbManager.execute(query);
         System.out.println("Expense Table Output");
     }
