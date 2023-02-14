@@ -19,10 +19,10 @@ public class InputEditorPanel extends JPanel {
     private Input input;
     private JLabel dptoLabel = new JLabel("Unidad");
     private JLabel descriptionLabel = new JLabel("Descripcion");
-    private JLabel amountLabel = new JLabel("Amount");
-    private JLabel dateLabel = new JLabel("date");
-    private JTextField descriptionField = new JTextField(15);
-    private JTextField amountField = new JTextField(15);
+    private JLabel amountLabel = new JLabel("Valor");
+    private JLabel dateLabel = new JLabel("Fecha");
+    private JTextField descriptionField = new JTextField(13);
+    private JTextField amountField = new JTextField(13);
     private JDateChooser calendar = new JDateChooser();
     private JComboBox dptoBox = new JComboBox();
     private JButton clearButton = new JButton("Limpiar");
@@ -115,6 +115,7 @@ public class InputEditorPanel extends JPanel {
     private JPanel createCalendarPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
+        calendar.setPreferredSize(new Dimension(200, calendar.getPreferredSize().height));
         calendar.setDate(Date.from(Instant.now()));
         panel.add(dateLabel);
         panel.add(calendar);
