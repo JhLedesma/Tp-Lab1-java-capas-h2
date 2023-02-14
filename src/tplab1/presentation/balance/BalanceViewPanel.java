@@ -7,7 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
-import java.util.List;
+
+import static tplab1.presentation.PanelUtils.*;
 
 public class BalanceViewPanel extends JPanel {
 
@@ -49,9 +50,9 @@ public class BalanceViewPanel extends JPanel {
 
         JPanel middlePanel = new JPanel();
         middlePanel.setLayout(new GridLayout(1, 3));
-        middlePanel.add(createLabelPanel(inputLabel, inputResultLabel));
-        middlePanel.add(createLabelPanel(outputLabel, outputResultLabel));
-        middlePanel.add(createLabelPanel(balanceLabel, balanceResultLabel));
+        middlePanel.add(createVerticalLabelPanel(inputLabel, inputResultLabel));
+        middlePanel.add(createVerticalLabelPanel(outputLabel, outputResultLabel));
+        middlePanel.add(createVerticalLabelPanel(balanceLabel, balanceResultLabel));
 
         JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new FlowLayout());
@@ -83,9 +84,9 @@ public class BalanceViewPanel extends JPanel {
             int monthId = Integer.parseInt(monthBox.getSelectedItem().toString());
             Integer dptoId = Integer.parseInt(dptoBox.getSelectedItem().toString());
             MonthlyBalance monthlyBalance = monthlyBalanceService.getBalance(monthId, dptoId);
-            inputResultLabel.setText(monthlyBalance.getInputAmount().toString());
-            outputResultLabel.setText(monthlyBalance.getOutputAmount().toString());
-            balanceResultLabel.setText(monthlyBalance.getBalanceAmount().toString());
+            inputResultLabel.setText(monthlyBalance.getInputAmount());
+            outputResultLabel.setText(monthlyBalance.getOutputAmount());
+            balanceResultLabel.setText(monthlyBalance.getBalanceAmount());
         };
     }
 
@@ -95,30 +96,5 @@ public class BalanceViewPanel extends JPanel {
 
     public ActionListener execCancelButton() {
         return e -> balanceController.showMainPanel();
-    }
-
-
-    private JPanel createComboBoxPanel(JLabel label, JComboBox comboBox) {
-        JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout());
-        panel.add(label);
-        comboBox.setPreferredSize(new Dimension(170, comboBox.getPreferredSize().height));
-        panel.add(comboBox);
-        return panel;
-    }
-
-    private JPanel createLabelPanel(JLabel label, JLabel labelInfo) {
-        JPanel panel = new JPanel();
-        BoxLayout verticalLayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
-        panel.setLayout(verticalLayout);
-        panel.add(label);
-        panel.add(labelInfo);
-        JPanel outerPanel = new JPanel();
-        outerPanel.add(panel);
-        return outerPanel;
-    }
-
-    private void addButtonToPanel(List<JButton> childButtons, JPanel panel) {
-        childButtons.forEach(panel::add);
     }
 }

@@ -7,10 +7,9 @@ import tplab1.application.service.InputService;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.time.Instant;
 import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+
+import static tplab1.presentation.PanelUtils.*;
 
 public class InputEditorPanel extends JPanel {
 
@@ -43,23 +42,6 @@ public class InputEditorPanel extends JPanel {
         addListeners();
     }
 
-    public ActionListener execClearButton() {
-        return e -> setFields();
-    }
-
-    public ActionListener execSaveButton() {
-        return e -> {
-            String dptoId = dptoBox.getSelectedItem().toString();
-            String id = input != null && input.getId() != null ? input.getId().toString() : null;
-            inputService.save(id, amountField.getText(), descriptionField.getText(), calendar.getDate(), dptoId);
-            inputController.showInputTablePanel();
-        };
-    }
-
-    public ActionListener execCancelButton() {
-        return e -> inputController.showInputTablePanel();
-    }
-
     public void setFields() {
         dptoBox.setModel(new DefaultComboBoxModel(inputService.getDptosIds()));
         if (input != null) {
@@ -80,7 +62,7 @@ public class InputEditorPanel extends JPanel {
         JPanel dptoPanel = createComboBoxPanel(dptoLabel, dptoBox);
         JPanel descriptionPanel = createEditPanel(descriptionLabel, descriptionField);
         JPanel amountPanel = createEditPanel(amountLabel, amountField);
-        JPanel panel = createCalendarPanel();
+        JPanel panel = createCalendarPanel(calendar, dateLabel);
 
         addPanelToPanel(Arrays.asList(dptoPanel, descriptionPanel, amountPanel, panel), topPanel);
         addButtonToPanel(Arrays.asList(clearButton, saveButton, cancelButton), bottomPanel);
@@ -95,39 +77,21 @@ public class InputEditorPanel extends JPanel {
         cancelButton.addActionListener(execCancelButton());
     }
 
-    private JPanel createEditPanel(JLabel label, JTextField field) {
-        JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout());
-        panel.add(label);
-        panel.add(field);
-        return panel;
+    public ActionListener execClearButton() {
+        return e -> setFields();
     }
 
-    private JPanel createComboBoxPanel(JLabel label, JComboBox comboBox) {
-        JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout());
-        panel.add(label);
-        comboBox.setPreferredSize(new Dimension(170, comboBox.getPreferredSize().height));
-        panel.add(comboBox);
-        return panel;
+    public ActionListener execSaveButton() {
+        return e -> {
+            String dptoId = dptoBox.getSelectedItem().toString();
+            String id = input != null && input.getId() != null ? input.getId().toString() : null;
+            inputService.save(id, amountField.getText(), descriptionField.getText(), calendar.getDate(), dptoId);
+            inputController.showInputTablePanel();
+        };
     }
 
-    private JPanel createCalendarPanel() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout());
-        calendar.setPreferredSize(new Dimension(200, calendar.getPreferredSize().height));
-        calendar.setDate(Date.from(Instant.now()));
-        panel.add(dateLabel);
-        panel.add(calendar);
-        return panel;
-    }
-
-    private void addPanelToPanel(List<JPanel> childPanels, JPanel panel) {
-        childPanels.forEach(panel::add);
-    }
-
-    private void addButtonToPanel(List<JButton> childButtons, JPanel panel) {
-        childButtons.forEach(panel::add);
+    public ActionListener execCancelButton() {
+        return e -> inputController.showInputTablePanel();
     }
 
     public void setInput(Input input) {
