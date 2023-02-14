@@ -6,6 +6,7 @@ import tplab1.application.model.Input;
 import tplab1.application.model.Output;
 import tplab1.application.service.DptoService;
 import tplab1.application.service.InputService;
+import tplab1.application.service.OutputService;
 import tplab1.persistency.DAO;
 import tplab1.persistency.DbBootstrapping;
 import tplab1.persistency.DbManager;
@@ -18,6 +19,7 @@ import tplab1.persistency.h2.dao.OutputH2Dao;
 import tplab1.presentation.MainFrame;
 import tplab1.presentation.dpto.DptoController;
 import tplab1.presentation.input.InputController;
+import tplab1.presentation.output.OutputController;
 
 public class Main {
 
@@ -32,13 +34,15 @@ public class Main {
 
         DptoService dptoService = new DptoService(dptoDAO);
         InputService inputService = new InputService(inputDAO, dptoDAO);
+        OutputService outputService = new OutputService(outputDAO);
 
         new DbBootstrapping(tableManager, dptoDAO, outputDAO).exec();
 
         DptoController dptoController = new DptoController(dptoService);
         InputController inputController = new InputController(inputService);
+        OutputController outputController = new OutputController(outputService);
 
-        MainFrame mainFrame = new MainFrame(dptoController, inputController);
+        MainFrame mainFrame = new MainFrame(dptoController, inputController, outputController);
         mainFrame.show();
     }
 }

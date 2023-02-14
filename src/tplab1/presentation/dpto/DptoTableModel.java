@@ -14,7 +14,7 @@ public class DptoTableModel extends AbstractTableModel {
     private static final int SIZE_COLUM = 3;
     private static final int NAME_COLUM = 4;
     private static final int SURNAME_COLUM = 5;
-    private String[] columNames = {"Dpto", "Floor", "Size", "Dni", "Nombre", "Apellido"};
+    private String[] columNames = {"Dpto", "Dni", "Floor", "Size", "Nombre", "Apellido"};
     private Class[] columTypes = {String.class, String.class, String.class, String.class, String.class, String.class};
     private List<Dpto> content;
 

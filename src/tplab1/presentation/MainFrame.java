@@ -2,6 +2,7 @@ package tplab1.presentation;
 
 import tplab1.presentation.dpto.DptoController;
 import tplab1.presentation.input.InputController;
+import tplab1.presentation.output.OutputController;
 
 import javax.swing.*;
 
@@ -10,10 +11,11 @@ public class MainFrame {
     private JFrame frame = new JFrame("Administracion de consorcio");
     private MainPanel mainPanel;
 
-    public MainFrame(DptoController dptoController, InputController inputController) {
+    public MainFrame(DptoController dptoController, InputController inputController, OutputController outputController) {
         dptoController.setFrame(this);
         inputController.setFrame(this);
-        this.mainPanel = new MainPanel(dptoController, inputController);
+        outputController.setFrame(this);
+        this.mainPanel = new MainPanel(dptoController, inputController, outputController);
     }
 
     public void show() {
