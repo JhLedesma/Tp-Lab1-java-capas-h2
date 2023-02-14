@@ -20,9 +20,10 @@ public class BalanceService {
     public MonthlyBalance getBalance(int month, Integer dptoId) {
         System.out.println("Building Monthly Balance | Month: " + month + " | Dpto Id: " + dptoId);
         try {
+            int dptosCount = dptoDAO.getAll().size();
             Dpto dpto = dptoDAO.get(dptoId);
             Double inputAmount = getInputSum(month, dptoId);
-            Double expenseAmount = getExpenseSum(month);
+            Double expenseAmount = getExpenseSum(month) / dptosCount;
             MonthlyBalance monthlyBalance = new MonthlyBalance(dpto, inputAmount, expenseAmount);
             System.out.println("Monthly Balance Built | " + monthlyBalance);
             return monthlyBalance;
