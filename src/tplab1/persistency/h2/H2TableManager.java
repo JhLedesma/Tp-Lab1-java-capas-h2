@@ -23,7 +23,7 @@ public class H2TableManager implements TableManager {
     public void dropTables() {
         dropDptoTable("input");
         dropDptoTable("habitant");
-        dropDptoTable("expense");
+        dropDptoTable("output");
         dropDptoTable("dpto");
     }
 
@@ -61,11 +61,11 @@ public class H2TableManager implements TableManager {
     }
 
     private void createExpenseTable() {
-        System.out.println("Creating Expense Table");
-        String query = "CREATE TABLE IF NOT EXISTS expense ( id IDENTITY NOT NULL PRIMARY KEY," +
+        System.out.println("Creating Output Table");
+        String query = "CREATE TABLE IF NOT EXISTS output ( id IDENTITY NOT NULL PRIMARY KEY," +
                 " amount DECIMAL, description VARCHAR(256), date TIMESTAMP;";
         dbManager.execute(query);
-        System.out.println("Expense Table Created");
+        System.out.println("Expense Table Output");
     }
 
     private void dropDptoTable(String table) {

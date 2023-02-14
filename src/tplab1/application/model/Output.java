@@ -3,21 +3,21 @@ package tplab1.application.model;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Expense {
+public class Output {
 
     private Integer id;
     private Double amount;
     private String description;
     private LocalDateTime date;
 
-    public Expense(Integer id, Double amount, String description, LocalDateTime date) {
+    public Output(Integer id, Double amount, String description, LocalDateTime date) {
         this.id = id;
         this.amount = amount;
         this.description = description;
         this.date = date;
     }
 
-    public Expense(Double amount, String description, LocalDateTime date) {
+    public Output(Double amount, String description, LocalDateTime date) {
         this.amount = amount;
         this.description = description;
         this.date = date;
@@ -59,8 +59,8 @@ public class Expense {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Expense expense = (Expense) o;
-        return Objects.equals(id, expense.id) && Objects.equals(amount, expense.amount) && Objects.equals(description, expense.description) && Objects.equals(date, expense.date);
+        Output output = (Output) o;
+        return Objects.equals(id, output.id) && Objects.equals(amount, output.amount) && Objects.equals(description, output.description) && Objects.equals(date, output.date);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class Expense {
 
     @Override
     public String toString() {
-        return "Expense{" +
+        return "Output{" +
                 "id=" + id +
                 ", amount=" + amount +
                 ", description='" + description + '\'' +

@@ -8,10 +8,10 @@ import tplab1.persistency.exception.NonExistentElement;
 public class BalanceService {
 
     private DAO<Input, Integer> inputDao;
-    private DAO<Expense, Integer> expenseDao;
+    private DAO<Output, Integer> expenseDao;
     private DAO<Dpto, Integer> dptoDAO;
 
-    public BalanceService(DAO<Input, Integer> inputDao, DAO<Expense, Integer> expenseDao, DAO<Dpto, Integer> dptoDAO) {
+    public BalanceService(DAO<Input, Integer> inputDao, DAO<Output, Integer> expenseDao, DAO<Dpto, Integer> dptoDAO) {
         this.inputDao = inputDao;
         this.expenseDao = expenseDao;
         this.dptoDAO = dptoDAO;
@@ -51,7 +51,7 @@ public class BalanceService {
     private Double getExpenseSum(int month) {
         return expenseDao.getAll().stream()
                 .filter(expense -> expense.getDate().getMonth().getValue() == month)
-                .map(Expense::getAmount)
+                .map(Output::getAmount)
                 .reduce(Double::sum)
                 .orElse(0.0);
     }
@@ -67,7 +67,7 @@ public class BalanceService {
     private Double getExpenseSum(int monthFrom, int monthTo) {
         return expenseDao.getAll().stream()
                 .filter(expense -> expense.getDate().getMonth().getValue() >= monthFrom && expense.getDate().getMonth().getValue() <= monthTo)
-                .map(Expense::getAmount)
+                .map(Output::getAmount)
                 .reduce(Double::sum)
                 .orElse(0.0);
     }

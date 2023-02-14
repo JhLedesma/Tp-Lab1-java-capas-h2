@@ -1,6 +1,6 @@
 package tplab1.presentation.output;
 
-import tplab1.application.model.Expense;
+import tplab1.application.model.Output;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class OutputTableModel extends AbstractTableModel {
     private static final int DATE_COLUM = 2;
     private String[] columNames = {"Descripcion", "Valor", "Fecha"};
     private Class[] columTypes = {String.class, String.class, String.class};
-    private List<Expense> content;
+    private List<Output> content;
 
     public OutputTableModel() {
         this.content = new ArrayList<>();
@@ -41,17 +41,17 @@ public class OutputTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Expense expense = content.get(rowIndex);
+        Output output = content.get(rowIndex);
         Object result;
         switch (columnIndex) {
             case DESCRIPTION_COLUM:
-                result = expense.getDescription();
+                result = output.getDescription();
                 break;
             case AMOUNT_COLUM:
-                result = expense.getAmount();
+                result = output.getAmount();
                 break;
             case DATE_COLUM:
-                result = expense.getDate();
+                result = output.getDate();
                 break;
             default:
                 result = "";
@@ -59,11 +59,11 @@ public class OutputTableModel extends AbstractTableModel {
         return result;
     }
 
-    public List<Expense> getContent() {
+    public List<Output> getContent() {
         return content;
     }
 
-    public void setContent(List<Expense> content) {
+    public void setContent(List<Output> content) {
         this.content = content;
     }
 }
