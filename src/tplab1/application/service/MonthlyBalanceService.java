@@ -29,10 +29,10 @@ public class MonthlyBalanceService {
             int dptosCount = dptoDAO.getAll().size();
             Dpto dpto = dptoDAO.get(dptoId);
             Double inputSum = getInputSum(month, dptoId);
-            Double outputSum = getOutputSum(month);
+            Double outputSum = getOutputSum(month) / dptosCount;
             Double balance = inputSum - outputSum;
             String inputAmount = String.format("%.2f", inputSum);
-            String outputAmount = String.format("%.2f", outputSum / dptosCount);
+            String outputAmount = String.format("%.2f", outputSum);
             String balanceAmount = String.format("%.2f", balance);
             MonthlyBalance monthlyBalance = new MonthlyBalance(dpto, inputAmount, outputAmount, balanceAmount);
             System.out.println("Monthly Balance Built | " + monthlyBalance);
