@@ -30,15 +30,13 @@ public class MainPanel extends JPanel {
     }
 
     public void buildPanel() {
-        BoxLayout verticalLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
-        this.setLayout(verticalLayout);
         addComponents();
         addListeners();
     }
 
     private void addComponents() {
         this.setLayout(new FlowLayout());
-        this.setPreferredSize(new Dimension(450, 200));
+        this.setPreferredSize(new Dimension(450, 70));
         this.add(dptosButton);
         this.add(inputButton);
         this.add(outputButton);

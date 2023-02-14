@@ -48,13 +48,13 @@ public class BalanceViewPanel extends JPanel {
         topPanel.add(createComboBoxPanel(monthLabel, monthBox));
 
         JPanel middlePanel = new JPanel();
-        middlePanel.setLayout(new FlowLayout());
+        middlePanel.setLayout(new GridLayout(1, 3));
         middlePanel.add(createLabelPanel(inputLabel, inputResultLabel));
         middlePanel.add(createLabelPanel(outputLabel, outputResultLabel));
         middlePanel.add(createLabelPanel(balanceLabel, balanceResultLabel));
 
         JPanel bottomPanel = new JPanel();
-        middlePanel.setLayout(new FlowLayout());
+        bottomPanel.setLayout(new FlowLayout());
         addButtonToPanel(Arrays.asList(clearButton, findButton, cancelButton), bottomPanel);
 
         this.add(topPanel);
@@ -113,7 +113,9 @@ public class BalanceViewPanel extends JPanel {
         panel.setLayout(verticalLayout);
         panel.add(label);
         panel.add(labelInfo);
-        return panel;
+        JPanel outerPanel = new JPanel();
+        outerPanel.add(panel);
+        return outerPanel;
     }
 
     private void addButtonToPanel(List<JButton> childButtons, JPanel panel) {

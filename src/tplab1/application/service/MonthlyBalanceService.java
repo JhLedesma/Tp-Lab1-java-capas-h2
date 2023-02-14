@@ -28,9 +28,13 @@ public class MonthlyBalanceService {
         try {
             int dptosCount = dptoDAO.getAll().size();
             Dpto dpto = dptoDAO.get(dptoId);
-            Double inputAmount = getInputSum(month, dptoId);
-            Double expenseAmount = getExpenseSum(month) / dptosCount;
-            MonthlyBalance monthlyBalance = new MonthlyBalance(dpto, inputAmount, expenseAmount);
+            Double inputSum = getInputSum(month, dptoId);
+            Double outputSum = getOutputSum(month);
+            Double balance = inputSum - outputSum;
+            String inputAmount = String.format("%.2f", inputSum);
+            String outputAmount = String.format("%.2f", outputSum / dptosCount);
+            String balanceAmount = String.format("%.2f", balance);
+            MonthlyBalance monthlyBalance = new MonthlyBalance(dpto, inputAmount, outputAmount, balanceAmount);
             System.out.println("Monthly Balance Built | " + monthlyBalance);
             return monthlyBalance;
         } catch (NonExistentElement e) {
@@ -56,7 +60,7 @@ public class MonthlyBalanceService {
                 .orElse(0.0);
     }
 
-    private Double getExpenseSum(int month) {
+    private Double getOutputSum(int month) {
         return outputDao.getAll().stream()
                 .filter(expense -> expense.getDate().getMonth().getValue() == month)
                 .map(Output::getAmount)
